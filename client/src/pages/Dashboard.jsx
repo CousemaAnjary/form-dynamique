@@ -1,4 +1,6 @@
 import Navbar from "@/components/dashboard/Navbar";
+import SidebarLeft from "@/components/dashboard/SidebarLeft";
+import { useState } from "react";
 
 export default function Dashboard() {
     /**
@@ -9,6 +11,11 @@ export default function Dashboard() {
     /**
      * ! COMPORTEMENT (méthodes, fonctions) de l'application
      */
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
 
 
     /**
@@ -21,7 +28,12 @@ export default function Dashboard() {
                 <Navbar />
 
                 <div className="flex flex-1 mt-10 h-full overflow-x-hidden">
-                    {/* Left Sidebar */}
+                    <div className="flex-shrink-0 w-64">
+                        {/* Left Sidebar */}
+                        <div className={`transition-all duration-700 ${isSidebarOpen ? 'mr-20' : 'mr-20'}`}>
+                            <SidebarLeft isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+                        </div>
+                    </div>
 
                     <main className={`flex-grow  transition-all duration-300 `}>
                         {/* Contenu principal */}
