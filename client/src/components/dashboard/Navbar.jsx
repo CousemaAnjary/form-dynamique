@@ -1,7 +1,7 @@
 import { Button } from '../ui/button';
 import { Link } from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
-import { LogOut, Settings, User} from 'lucide-react';
+import { LogOut, Settings, User } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
 
 
@@ -10,7 +10,7 @@ export default function Navbar() {
         <nav className="bg-white p-4 shadow sticky top-0 z-50">
             <div className="container-fluid mx-20 flex justify-between items-center">
                 <div className="flex items-center space-x-4">
-                    <Link to="#" className="text-2xl font-bold font-serif text-black">FormFlow</Link>
+                    <Link to="#" className="text-2xl font-bold font-mono text-black">FormFlow</Link>
                 </div>
 
                 <div className="flex items-center space-x-4">
@@ -27,8 +27,8 @@ export default function Navbar() {
                     <DropdownMenu>
 
                         <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="relative h-10 w-10 rounded-full">
-                                <Avatar className="h-10 w-10">
+                            <Button variant="outline" className="relative h-9 w-9 rounded-full">
+                                <Avatar >
                                     <AvatarImage src="" alt="avatar" />
                                     <AvatarFallback className="bg-transparent">CN</AvatarFallback>
                                 </Avatar>
