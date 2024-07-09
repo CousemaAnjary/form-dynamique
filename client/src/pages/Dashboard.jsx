@@ -27,10 +27,10 @@ export default function Dashboard() {
                 {/* Navbar */}
                 <Navbar />
 
-                <div className="flex flex-1 mt-10 h-full overflow-x-hidden">
+                <div className="flex flex-1 h-full overflow-x-hidden">
                     <div className="flex-shrink-0 w-64">
                         {/* Left Sidebar */}
-                        <div className={`transition-all duration-700 ${isSidebarOpen ? 'mr-20' : 'mr-20'}`}>
+                        <div className={`transition-all duration-700 mt-10 ${isSidebarOpen ? 'mr-20' : 'mr-20'}`}>
                             <SidebarLeft isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
                         </div>
                     </div>
