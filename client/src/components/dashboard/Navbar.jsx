@@ -2,7 +2,7 @@ import { Button } from '../ui/button';
 
 import { Link } from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
-import { LogOut, Settings, User, MessageSquareMore, Bell } from 'lucide-react';
+import { LogOut, Settings, User} from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
 
 
