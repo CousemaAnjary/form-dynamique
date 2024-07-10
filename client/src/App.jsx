@@ -1,6 +1,7 @@
 
 import { Route, Routes } from "react-router-dom"
 import Dashboard from "./pages/Dashboard"
+import NewForm from "./pages/NewForm"
 
 export default function App() {
   /**
@@ -20,6 +21,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/new-form" element={<NewForm />} />
       </Routes>
     </>
 
