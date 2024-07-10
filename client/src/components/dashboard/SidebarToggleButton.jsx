@@ -9,7 +9,7 @@ export default function SidebarToggleButton({ isOpen, toggleSidebar }) {
         <Button
             variant="outline"
             size="sm"
-            className={`absolute transition-all duration-300 ${isOpen ? 'left-60' : 'left-16'} top-20 p-2 py-0 shadow-md bg-white z-10`}
+            className={`absolute transition-all duration-300 ${isOpen ? 'left-60' : 'left-20'} top-20 p-2 py-0 shadow-md bg-white z-10`}
             onClick={toggleSidebar}
         >
             {isOpen ? (

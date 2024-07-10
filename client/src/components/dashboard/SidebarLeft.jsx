@@ -24,11 +24,11 @@ export default function SidebarLeft({ isOpen, toggleSidebar }) {
     };
 
     return (
-        <div className={`fixed left-0 h-full bg-white text-gray-200 shadow-md transition-all duration-300 ${sidebarOpen ? 'w-64' : ''}`}>
+        <div className={`fixed left-0 h-full bg-white text-gray-200 shadow-md  ${sidebarOpen ? 'w-64' : 'w-24'}`}>
             <div className="flex flex-col flex-grow p-4">
                 <div className="flex items-center justify-between">
-                    <Button variant="secondary" className="flex items-center space-x-2 w-full justify-start p-2 py-7 mb-2">
-                        <Avatar className="w-10 h-10 shadow">
+                    <Button variant="secondary" className="flex items-center space-x-2 w-full justify-start p-3 py-7 mb-2">
+                        <Avatar className="w-9 h-9 shadow">
                             <AvatarImage src="" alt="@shadcn" />
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
@@ -47,8 +47,8 @@ export default function SidebarLeft({ isOpen, toggleSidebar }) {
                         </div>
                     )}
                     <Link to="/friendzy/invitation">
-                        <Button variant="ghost" className="flex items-center space-x-2 w-full justify-start p-2 py-6 ps-4">
-                            <LiaUserFriendsSolid size={24} className="text-black mr-2" />
+                        <Button variant="ghost" className="flex items-center space-x-2 w-full justify-start p-3 py-6 ps-5">
+                            <LiaUserFriendsSolid size={22} className="text-black mr-2" />
                             {sidebarOpen && <p className="text-base font-semibold leading-7 text-black">Invitations</p>}
                         </Button>
                     </Link>
