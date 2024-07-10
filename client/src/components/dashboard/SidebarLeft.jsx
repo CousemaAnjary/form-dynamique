@@ -43,14 +43,14 @@ export default function SidebarLeft({ isOpen, toggleSidebar }) {
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-[600px]">
                             <DialogHeader>
-                                <DialogTitle>Créer le projet: Détails du projet</DialogTitle>
+                                <DialogTitle>Créer le projet: Détails du formulaire</DialogTitle>
                             </DialogHeader>
                             <div className="grid gap-4 py-4">
                                 <div className="grid gap-4">
                                     <Label htmlFor="project-title">Titre du projet (requis)</Label>
                                     <Input
                                         id="project-title"
-                                        placeholder="Veuillez saisir un titre pour votre projet"
+                                        placeholder="ex: Formulaire de contact, Formulaire d'inscription, etc."
                                     />
                                 </div>
                                 <div className="grid gap-4">
@@ -60,40 +60,19 @@ export default function SidebarLeft({ isOpen, toggleSidebar }) {
                                         placeholder="Veuillez saisir une courte description ici"
                                     />
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid  gap-4">
                                     <div className="grid gap-4">
-                                        <Label htmlFor="project-sector">Secteur (requis)</Label>
-                                        <select
-                                            id="project-sector"
-                                            className="border rounded px-4 py-2"
-                                            defaultValue=""
-                                        >
-                                            <option value="" disabled>
-                                                Sélectionner…
-                                            </option>
-                                            <option value="tech">Tech</option>
-                                            <option value="finance">Finance</option>
-                                        </select>
-                                    </div>
-                                    <div className="grid gap-4">
-                                        <Label htmlFor="project-country">Pays (requis)</Label>
-                                        <select
-                                            id="project-country"
-                                            className="border rounded px-4 py-2"
-                                            defaultValue=""
-                                        >
-                                            <option value="" disabled>
-                                                Sélectionner…
-                                            </option>
-                                            <option value="france">France</option>
-                                            <option value="usa">USA</option>
-                                        </select>
+                                        <Label htmlFor="project-country">Nom de la table (requis)</Label>
+                                        <Input
+                                            id="table-name"
+                                            placeholder="ex: users, posts, comments, etc."
+                                        />
                                     </div>
                                 </div>
                             </div>
                             <DialogFooter>
-                                <Button variant="outline">RETOUR</Button>
-                                <Button type="submit">CRÉER LE PROJET</Button>
+                                <Button variant="outline">Retour</Button>
+                                <Button type="submit">Créer le formulaire</Button>
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
