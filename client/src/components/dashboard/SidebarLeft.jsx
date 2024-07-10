@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import SidebarToggleButton from "./SidebarToggleButton";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
@@ -14,6 +15,7 @@ export default function SidebarLeft({ isOpen, toggleSidebar }) {
     };
 
     const [sidebarOpen, setSidebarOpen] = useState(getInitialSidebarState);
+    const navigate = useNavigate();
 
     useEffect(() => {
         localStorage.setItem('sidebarOpen', JSON.stringify(sidebarOpen));
@@ -22,6 +24,11 @@ export default function SidebarLeft({ isOpen, toggleSidebar }) {
     const handleToggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
         if (toggleSidebar) toggleSidebar(!sidebarOpen);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        navigate('/new-form');
     };
 
     return (
@@ -38,35 +45,37 @@ export default function SidebarLeft({ isOpen, toggleSidebar }) {
                             <DialogHeader>
                                 <DialogTitle>Créer le projet: Détails du formulaire</DialogTitle>
                             </DialogHeader>
-                            <div className="grid gap-4 py-4">
-                                <div className="grid gap-4">
-                                    <Label htmlFor="project-title">Titre du projet (requis)</Label>
-                                    <Input
-                                        id="project-title"
-                                        placeholder="ex: Formulaire de contact, Formulaire d'inscription, etc."
-                                    />
-                                </div>
-                                <div className="grid gap-4">
-                                    <Label htmlFor="project-description">Description</Label>
-                                    <Input
-                                        id="project-description"
-                                        placeholder="Veuillez saisir une courte description ici"
-                                    />
-                                </div>
-                                <div className="grid  gap-4">
+                            <form onSubmit={handleSubmit}>
+                                <div className="grid gap-4 py-4">
                                     <div className="grid gap-4">
-                                        <Label htmlFor="project-country">Nom de la table (requis)</Label>
+                                        <Label htmlFor="project-title">Titre du projet (requis)</Label>
                                         <Input
-                                            id="table-name"
-                                            placeholder="ex: users, posts, comments, etc."
+                                            id="project-title"
+                                            placeholder="ex: Formulaire de contact, Formulaire d'inscription, etc."
                                         />
                                     </div>
+                                    <div className="grid gap-4">
+                                        <Label htmlFor="project-description">Description</Label>
+                                        <Input
+                                            id="project-description"
+                                            placeholder="Veuillez saisir une courte description ici"
+                                        />
+                                    </div>
+                                    <div className="grid  gap-4">
+                                        <div className="grid gap-4">
+                                            <Label htmlFor="project-country">Nom de la table (requis)</Label>
+                                            <Input
+                                                id="table-name"
+                                                placeholder="ex: users, posts, comments, etc."
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <DialogFooter>
-                                <Button variant="outline">Retour</Button>
-                                <Button type="submit">Créer le formulaire</Button>
-                            </DialogFooter>
+                                <DialogFooter>
+                                    <Button variant="outline">Retour</Button>
+                                    <Button type="submit">Créer le formulaire</Button>
+                                </DialogFooter>
+                            </form>
                         </DialogContent>
                     </Dialog>
                     <SidebarToggleButton isOpen={sidebarOpen} toggleSidebar={handleToggleSidebar} />
