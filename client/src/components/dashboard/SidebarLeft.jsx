@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import SidebarToggleButton from "../dashboard/SidebarToggleButton";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Plus } from 'lucide-react';
 
 export default function SidebarLeft({ isOpen, toggleSidebar }) {
     const getInitialSidebarState = () => {
@@ -27,13 +27,16 @@ export default function SidebarLeft({ isOpen, toggleSidebar }) {
         <div className={`fixed left-0 h-screen bg-white text-gray-200 shadow-md   ${sidebarOpen ? 'w-64' : 'w-24'}`}>
             <div className="flex flex-col flex-grow p-4">
                 <div className="flex items-center justify-between">
-                    <Button variant="secondary" className="flex items-center space-x-2 w-full justify-start p-3 py-7 mb-2">
-                        <Avatar className="w-10 h-10 shadow">
-                            <AvatarImage src="" alt="@shadcn" />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                        {sidebarOpen && <p className="text-sm font-semibold leading-7 text-black">Nom d'utilisateur</p>}
-                    </Button>
+                    {sidebarOpen ? (
+                        <Button className="flex items-center space-x-2 w-full justify-center p-3 py-7 mb-2 text-base bg-blue-900">
+                            Nouveau
+                        </Button>) : (
+                        <Button className="flex items-center space-x-2 w-full justify-center p-3 py-7 mb-2 text-base bg-blue-900">
+                            < Plus size={26} className="text-white" />
+                        </Button>
+                    )}
+
+
                     <SidebarToggleButton isOpen={sidebarOpen} toggleSidebar={handleToggleSidebar} />
                 </div>
                 <div className="mt-2">
@@ -46,12 +49,12 @@ export default function SidebarLeft({ isOpen, toggleSidebar }) {
                             <HiOutlineDotsHorizontal size={24} className="text-black" />
                         </div>
                     )}
-                    <Link to="/friendzy/invitation">
+                    {/* <Link to="/friendzy/invitation">
                         <Button variant="ghost" className="flex items-center space-x-2 w-full justify-start p-3 py-6 ps-5">
                             <LiaUserFriendsSolid size={24} className="text-black mr-2" />
                             {sidebarOpen && <p className="text-base font-semibold leading-7 text-black">Invitations</p>}
                         </Button>
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </div>

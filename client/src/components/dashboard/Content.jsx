@@ -1,4 +1,3 @@
-
 export default function Content() {
     return (
         <div className="bg-white p-5 shadow">
