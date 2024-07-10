@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
-import { LiaUserFriendsSolid } from "react-icons/lia";
 import SidebarToggleButton from "../dashboard/SidebarToggleButton";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { Plus } from 'lucide-react';
