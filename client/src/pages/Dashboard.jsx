@@ -17,20 +17,20 @@ export default function Dashboard() {
      */
     return (
         <>
-            <div className="min-h-screen w-full">
+            <div className="h-full w-full">
                 {/* Navbar */}
                 <Navbar />
 
                 <div className="flex h-full overflow-x-hidden">
                     {/* Left Sidebar */}
-                    <div className={`transition-all duration-700 ${isSidebarOpen ? 'mr-20' : 'mr-20'}`}>
+                    <div className={` ${isSidebarOpen ? 'mr-20' : 'mr-20'}`}>
                         <SidebarLeft isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
                     </div>
 
-                    <main className={`flex-grow transition-all duration-300 ease-in-out mt-12 ${isSidebarOpen ? 'ml-64' : 'ml-20'}`}>
+                    <main className={`flex-grow transition-all duration-300 ease-in-out mt-12  ${isSidebarOpen ? 'ml-64' : 'ml-20'}`}>
                         {/* Contenu principal */}
-                        <div className=" bg-black text-white ">
-                            dd
+                        <div className=" bg-white  p-5 shadow">
+                            <h1 className="">dashboard</h1>
                         </div>
                     </main>
 
