@@ -73,7 +73,7 @@ export default function SidebarLeft({ isOpen, toggleSidebar }) {
                                 </div>
                                 <DialogFooter>
                                     <Button variant="outline">Retour</Button>
-                                    <Button type="submit">Créer le formulaire</Button>
+                                    <Button type="submit" className="bg-blue-900">Créer le formulaire</Button>
                                 </DialogFooter>
                             </form>
                         </DialogContent>
