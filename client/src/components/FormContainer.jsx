@@ -3,7 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, X } from 'lucide-react';
 import TypeOptions from './TypeOptions';
-import FormField from './FormField';
+import DraggableFormField from './DraggableFormField';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export default function FormContainer() {
     const [showQuestionInput, setShowQuestionInput] = useState(false);
@@ -25,9 +27,17 @@ export default function FormContainer() {
     };
 
     const addField = (type) => {
-        setFields([...fields, { type, label: 'Nom', placeholder: 'indice de question' }]);
+        setFields([...fields, { id: fields.length, type, label: 'Nom', placeholder: 'indice de question' }]);
         setShowQuestionInput(false);
         setShowTypeOptions(false);
+    };
+
+    const moveField = (dragIndex, hoverIndex) => {
+        const draggedField = fields[dragIndex];
+        const updatedFields = [...fields];
+        updatedFields.splice(dragIndex, 1);
+        updatedFields.splice(hoverIndex, 0, draggedField);
+        setFields(updatedFields);
     };
 
     return (
@@ -49,8 +59,9 @@ export default function FormContainer() {
             </div>
             <div className="container mx-auto mt-10">
                 <div className="border rounded p-6 text-center relative">
-                    {!showQuestionInput  && (
+                    {!showQuestionInput && (
                         <p className="text-gray-500">
+                            Ce formulaire est actuellement vide.
                             Vous pouvez ajouter des questions, notes, messages-guide ou autres champs en cliquant sur le signe « + » plus bas.
                         </p>
                     )}
@@ -77,9 +88,19 @@ export default function FormContainer() {
                 )}
                 {fields.length > 0 && (
                     <div className="mt-7 border p-4">
-                        {fields.map((field, index) => (
-                            <FormField key={index} type={field.type} label={field.label} placeholder={field.placeholder} />
-                        ))}
+                        <DndProvider backend={HTML5Backend}>
+                            {fields.map((field, index) => (
+                                <DraggableFormField
+                                    key={field.id}
+                                    id={field.id}
+                                    index={index}
+                                    type={field.type}
+                                    label={field.label}
+                                    placeholder={field.placeholder}
+                                    moveField={moveField}
+                                />
+                            ))}
+                        </DndProvider>
                     </div>
                 )}
             </div>
