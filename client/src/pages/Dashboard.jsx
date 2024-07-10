@@ -21,19 +21,20 @@ export default function Dashboard() {
                 {/* Navbar */}
                 <Navbar />
 
-                <div className="flex flex-1 h-full overflow-x-hidden">
-                    <div className="flex-shrink-0 w-64">
-                        {/* Left Sidebar */}
-                        <div className={`transition-all duration-1000 ease-in-out ${isSidebarOpen ? 'mr-20' : 'mr-20'}`}>
-                            <SidebarLeft isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-                        </div>
+                <div className="flex h-full overflow-x-hidden">
+                    {/* Left Sidebar */}
+                    <div className={`transition-all duration-700 ${isSidebarOpen ? 'mr-20' : 'mr-20'}`}>
+                        <SidebarLeft isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
                     </div>
 
-                    <main className={`flex-grow transition-all duration-1000 ease-in-out`}>
+                    <main className={`flex-grow transition-all duration-300 ease-in-out mt-12 ${isSidebarOpen ? 'ml-64' : 'ml-20'}`}>
                         {/* Contenu principal */}
+                        <div className=" bg-black text-white ">
+                            dd
+                        </div>
                     </main>
 
-                    <div className="flex-shrink-0 w-64 ml-20">
+                    <div className="flex-shrink-0 ml-28 ">
                         {/* Right Sidebar */}
                     </div>
                 </div>

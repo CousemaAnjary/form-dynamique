@@ -24,7 +24,7 @@ export default function SidebarLeft({ isOpen, toggleSidebar }) {
     };
 
     return (
-        <div className={`fixed left-0 h-full bg-white text-gray-200 shadow-md  ${sidebarOpen ? 'w-64' : 'w-24'}`}>
+        <div className={`fixed left-0 h-screen bg-white text-gray-200 shadow-md   ${sidebarOpen ? 'w-64' : 'w-24'}`}>
             <div className="flex flex-col flex-grow p-4">
                 <div className="flex items-center justify-between">
                     <Button variant="secondary" className="flex items-center space-x-2 w-full justify-start p-3 py-7 mb-2">
