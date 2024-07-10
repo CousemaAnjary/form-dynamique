@@ -1,3 +1,4 @@
+import Content from "@/components/dashboard/Content";
 import Navbar from "@/components/dashboard/Navbar";
 import SidebarLeft from "@/components/dashboard/SidebarLeft";
 import { useState } from "react";
@@ -29,9 +30,7 @@ export default function Dashboard() {
 
                     <main className={`flex-grow transition-all duration-300 ease-in-out mt-12  ${isSidebarOpen ? 'ml-64' : 'ml-20'}`}>
                         {/* Contenu principal */}
-                        <div className=" bg-white  p-5 shadow">
-                            <h1 className="">dashboard</h1>
-                        </div>
+                        <Content />
                     </main>
 
                     <div className="flex-shrink-0 ml-28 ">
