@@ -1,12 +1,12 @@
+import { Plus } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import SidebarToggleButton from "./SidebarToggleButton";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
-import { Plus } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 export default function SidebarLeft({ isOpen, toggleSidebar }) {
     const getInitialSidebarState = () => {
