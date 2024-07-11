@@ -1,19 +1,35 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
-import { Plus } from 'lucide-react';
+import { z } from "zod"
+import React from 'react'
+import { useState } from "react"
+import { Plus } from 'lucide-react'
+import { useForm } from "react-hook-form"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useNavigate } from 'react-router-dom'
+import { Button } from "@/components/ui/button"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { createProject } from "@/services/projectService"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog"
+
 
 export default function ProjectDialog({ sidebarOpen }) {
+    /**
+     * ! STATE (état, données) de l'application
+     */
     const navigate = useNavigate();
 
+    /**
+     * ! COMPORTEMENT (méthodes, fonctions) de l'application
+     */
     const handleSubmit = (e) => {
         e.preventDefault();
         navigate('/new-form');
     }
 
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -25,37 +41,40 @@ export default function ProjectDialog({ sidebarOpen }) {
                 <DialogHeader>
                     <DialogTitle>Créer le projet: Détails du formulaire</DialogTitle>
                 </DialogHeader>
-                <form onSubmit={handleSubmit}>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid gap-4">
-                            <Label htmlFor="project-title">Titre du projet (requis)</Label>
-                            <Input
-                                id="project-title"
-                                placeholder="ex: Formulaire de contact, Formulaire d'inscription, etc."
-                            />
-                        </div>
-                        <div className="grid gap-4">
-                            <Label htmlFor="project-description">Description</Label>
-                            <Input
-                                id="project-description"
-                                placeholder="Veuillez saisir une courte description ici"
-                            />
-                        </div>
-                        <div className="grid  gap-4">
+                <Form>
+                    <form onSubmit={handleSubmit}>
+                        <div className="grid gap-4 py-4">
                             <div className="grid gap-4">
-                                <Label htmlFor="project-country">Nom de la table (requis)</Label>
+                                <Label htmlFor="project-title">Titre du projet (requis)</Label>
                                 <Input
-                                    id="table-name"
-                                    placeholder="ex: users, posts, comments, etc."
+                                    id="project-title"
+                                    placeholder="ex: Formulaire de contact, Formulaire d'inscription, etc."
                                 />
                             </div>
+                            <div className="grid gap-4">
+                                <Label htmlFor="project-description">Description</Label>
+                                <Input
+                                    id="project-description"
+                                    placeholder="Veuillez saisir une courte description ici"
+                                />
+                            </div>
+                            <div className="grid  gap-4">
+                                <div className="grid gap-4">
+                                    <Label htmlFor="project-country">Nom de la table (requis)</Label>
+                                    <Input
+                                        id="table-name"
+                                        placeholder="ex: users, posts, comments, etc."
+                                    />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <DialogFooter>
-                        <Button variant="outline">Retour</Button>
-                        <Button type="submit" className="bg-blue-900">Créer le formulaire</Button>
-                    </DialogFooter>
-                </form>
+                        <DialogFooter>
+                            <Button variant="outline">Retour</Button>
+                            <Button type="submit" className="bg-blue-900">Créer le formulaire</Button>
+                        </DialogFooter>
+                    </form>
+                </Form>
+
             </DialogContent>
         </Dialog>
     );
