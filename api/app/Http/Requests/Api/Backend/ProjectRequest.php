@@ -25,7 +25,6 @@ class ProjectRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'table_name' => ['required', 'string', 'max:255'],
-            'end_date' => 'required|date',
             'status' => ['required', 'in:brouillon,terminée'],
         ];
     }

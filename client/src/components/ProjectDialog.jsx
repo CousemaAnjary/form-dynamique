@@ -13,6 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog"
 
 
+
 // Définir le schéma de validation avec Zod 
 const formSchema = z.object({
     title: z.string().min(1, { message: "Le titre est requis" }),
@@ -41,10 +42,6 @@ export default function ProjectDialog({ sidebarOpen }) {
     /**
      * ! COMPORTEMENT (méthodes, fonctions) de l'application
      */
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     navigate('/new-form');
-    // }
 
     const handleSubmit = async (data) => {
         //Données à envoyer pour la création du projet
@@ -56,12 +53,11 @@ export default function ProjectDialog({ sidebarOpen }) {
         }
 
         try {
-            const response = await createProject(projectData)
-            // Rediriger l'utilisateur vers la page de création de formulaire
-            navigate('/new-form');
+            console.log('projectData', projectData);
+
 
         } catch (error) {
-            console.error('Erreur lors de la création du projet', error)
+            console.error('Erreur lors de la création du projet : ', error)
         }
     }
 
@@ -140,3 +136,4 @@ export default function ProjectDialog({ sidebarOpen }) {
         </Dialog>
     );
 }
+
