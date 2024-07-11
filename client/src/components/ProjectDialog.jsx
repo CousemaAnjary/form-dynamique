@@ -13,18 +13,56 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog"
 
 
+// Définir le schéma de validation avec Zod 
+const formSchema = z.object({
+    title: z.string().min(1, { message: "Le titre est requis" }),
+    description: z.string().optional(),
+    table_name: z.string().min(1, { message: "Le nom de la table est requis" }),
+    status: z.enum(['brouillon', 'terminé']),
+})
+
 export default function ProjectDialog({ sidebarOpen }) {
     /**
      * ! STATE (état, données) de l'application
      */
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+
+    const form = useForm({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            title: '',
+            description: '',
+            table_name: '',
+            status: 'brouillon',
+        },
+
+    })
 
     /**
      * ! COMPORTEMENT (méthodes, fonctions) de l'application
      */
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        navigate('/new-form');
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     navigate('/new-form');
+    // }
+
+    const handleSubmit = async (data) => {
+        //Données à envoyer pour la création du projet
+        const projectData = {
+            title: data.title,
+            description: data.description,
+            table_name: data.table_name,
+            status: data.status,
+        }
+
+        try {
+            const response = await createProject(projectData)
+            // Rediriger l'utilisateur vers la page de création de formulaire
+            navigate('/new-form');
+
+        } catch (error) {
+            console.error('Erreur lors de la création du projet', error)
+        }
     }
 
     /**
@@ -41,36 +79,59 @@ export default function ProjectDialog({ sidebarOpen }) {
                 <DialogHeader>
                     <DialogTitle>Créer le projet: Détails du formulaire</DialogTitle>
                 </DialogHeader>
-                <Form>
+                <Form {...form}>
                     <form onSubmit={handleSubmit}>
                         <div className="grid gap-4 py-4">
                             <div className="grid gap-4">
-                                <Label htmlFor="project-title">Titre du projet (requis)</Label>
-                                <Input
-                                    id="project-title"
-                                    placeholder="ex: Formulaire de contact, Formulaire d'inscription, etc."
+                                <FormField
+                                    control={form.control}
+                                    name="title"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Titre du projet (requis)</FormLabel>
+                                            <FormControl>
+                                                <Input {...field} placeholder="ex: Formulaire de contact, Formulaire d'inscription, etc." className="shadow-sm" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
                                 />
                             </div>
                             <div className="grid gap-4">
-                                <Label htmlFor="project-description">Description</Label>
-                                <Input
-                                    id="project-description"
-                                    placeholder="Veuillez saisir une courte description ici"
+                                <FormField
+                                    control={form.control}
+                                    name="description"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Description</FormLabel>
+                                            <FormControl>
+                                                <Input {...field} placeholder="Veuillez saisir une courte description ici" className="shadow-sm" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
                                 />
                             </div>
                             <div className="grid  gap-4">
                                 <div className="grid gap-4">
-                                    <Label htmlFor="project-country">Nom de la table (requis)</Label>
-                                    <Input
-                                        id="table-name"
-                                        placeholder="ex: users, posts, comments, etc."
+                                    <FormField
+                                        control={form.control}
+                                        name="table_name"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Nom de la table (requis)</FormLabel>
+                                                <FormControl>
+                                                    <Input {...field} placeholder="ex: users, posts, comments, etc." className="shadow-sm" />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
                                     />
                                 </div>
                             </div>
                         </div>
                         <DialogFooter>
-                            <Button variant="outline">Retour</Button>
-                            <Button type="submit" className="bg-blue-900">Créer le formulaire</Button>
+                            <Button type="submit" className="bg-blue-900 w-full">Créer le formulaire</Button>
                         </DialogFooter>
                     </form>
                 </Form>
