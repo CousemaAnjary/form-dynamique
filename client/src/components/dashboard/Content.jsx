@@ -1,28 +1,53 @@
-import React from 'react';
-import { useState } from 'react';
-import DataTable from 'react-data-table-component';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal } from 'lucide-react'
 import { Input } from "@/components/ui/input"
+import { Button } from '@/components/ui/button'
+import React, { useState, useEffect } from 'react'
+import DataTable from 'react-data-table-component'
+import { getProjects } from '@/services/projectService'
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
 
 export default function Content() {
+
+    /**
+     * ! STATE (état, données) de l'application
+     */
+    const [records, setRecords] = useState([])
+    const [filter, setFilter] = useState('')
+
+    /**
+     * ! COMPORTEMENT (méthodes, fonctions) de l'application
+     */
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                // Récupérer la liste des projets depuis l'api
+                const projectsData = await getProjects()
+                setRecords(projectsData) // Mettre à jour les données des projets
+
+            } catch (error) {
+                console.error('Erreur lors de la récupération des projets : ', error)
+            }
+        }
+        fetchProjects() // Appeler la fonction fetchProjects    
+    }, []) // [] pour exécuter le code une seule fois après le premier rendu
+
+    // Colonnes du tableau
     const columns = [
         {
             name: 'Nom du projet',
-            selector: row => row.name,
+            selector: row => row.title,
             sortable: true,
         },
         {
             name: 'Statut',
-            selector: row => row.statut,
+            selector: row => row.status,
             sortable: true,
         },
-        {
-            name: 'Date de modification',
-            selector: row => row.dateUpdate,
-            sortable: true,
-        },
+        // {
+        //     name: 'Date de modification',
+        //     selector: row => new Date(row.updated_at).toLocaleDateString(),
+        //     sortable: true,
+        // },
         {
             name: 'Actions',
             cell: row => (
@@ -42,24 +67,9 @@ export default function Content() {
             allowOverflow: true,
             button: true,
         },
-    ];
+    ]
 
-    const data = [
-        {
-            id: 1,
-            name: 'Projet 1',
-            statut: 'En cours',
-            dateUpdate: '12/12/2021',
-        },
-        {
-            id: 2,
-            name: 'Projet 2',
-            statut: 'Terminé',
-            dateUpdate: '12/12/2021',
-        },
-        // Ajoutez plus de données ici
-    ];
-
+    // Styles personnalisés pour le tableau
     const customStyles = {
         rows: {
             style: {
@@ -78,23 +88,28 @@ export default function Content() {
                 paddingRight: '8px', // marge interne droite
             },
         },
-    };
-
-    const [records, setRecords] = useState(data);
-
-    const handlerFilter = (e) => {
-        const newData = data.filter((row) => {
-            return row.name.toLowerCase().includes(e.target.value.toLowerCase());
-        })
-        setRecords(newData);
     }
 
+    // Filtrer les projets
+    const handlerFilter = (e) => {
+        setFilter(e.target.value);
+    }
+
+    // Filtrer les projets en fonction du texte de recherche
+    const filteredRecords = records.filter((row) =>
+        row.title.toLowerCase().includes(filter.toLowerCase())
+    )
+
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
-        <div className=" p-5 shadow-sm">
+        <div className="p-5 shadow-sm">
             <div className="mb-4">
                 <Input
                     type="search"
                     placeholder="Rechercher un projet ..."
+                    value={filter}
                     onChange={handlerFilter}
                     className="mb-2"
                 />
@@ -102,7 +117,7 @@ export default function Content() {
             <DataTable
                 title="Liste des projets"
                 columns={columns}
-                data={records}
+                data={filteredRecords}
                 pagination
                 selectableRows
                 highlightOnHover
