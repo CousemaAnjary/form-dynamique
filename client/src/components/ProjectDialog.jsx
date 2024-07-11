@@ -80,7 +80,7 @@ export default function ProjectDialog({ sidebarOpen }) {
                     <DialogTitle>Créer le projet: Détails du formulaire</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={form.handleSubmit(handleSubmit)}>
                         <div className="grid gap-4 py-4">
                             <div className="grid gap-4">
                                 <FormField
