@@ -1,36 +1,49 @@
-import { Plus } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useNavigate } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
-import SidebarToggleButton from "./SidebarToggleButton";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
+import { Plus } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useNavigate } from 'react-router-dom'
+import { Button } from "@/components/ui/button"
+import SidebarToggleButton from "./SidebarToggleButton"
+import { HiOutlineDotsHorizontal } from "react-icons/hi"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog"
 
 export default function SidebarLeft({ isOpen, toggleSidebar }) {
-    const getInitialSidebarState = () => {
-        const savedSidebarState = localStorage.getItem('sidebarOpen');
-        return savedSidebarState !== null ? JSON.parse(savedSidebarState) : isOpen;
-    };
-
-    const [sidebarOpen, setSidebarOpen] = useState(getInitialSidebarState);
+    /**
+     * ! STATE (état, données) de l'application
+     */
     const navigate = useNavigate();
 
+
+
+    /**
+     * ! COMPORTEMENT (méthodes, fonctions) de l'application
+     */
+    const getInitialSidebarState = () => {
+        const savedSidebarState = localStorage.getItem('sidebarOpen');
+        return savedSidebarState !== null ? JSON.parse(savedSidebarState) : isOpen
+    };
+
+    const [sidebarOpen, setSidebarOpen] = useState(getInitialSidebarState)
+
     useEffect(() => {
-        localStorage.setItem('sidebarOpen', JSON.stringify(sidebarOpen));
-    }, [sidebarOpen]);
+        localStorage.setItem('sidebarOpen', JSON.stringify(sidebarOpen))
+    }, [sidebarOpen])
 
     const handleToggleSidebar = () => {
-        setSidebarOpen(!sidebarOpen);
-        if (toggleSidebar) toggleSidebar(!sidebarOpen);
+        setSidebarOpen(!sidebarOpen)
+        if (toggleSidebar) toggleSidebar(!sidebarOpen)
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        navigate('/new-form');
-    };
+        e.preventDefault()
+        navigate('/new-form')
+    }
 
+
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
         <div className={`fixed left-0 h-screen bg-white text-gray-200 shadow-md ${sidebarOpen ? 'w-64' : 'w-24'}`}>
             <div className="flex flex-col flex-grow p-4">
