@@ -17,10 +17,21 @@ class ProjectController extends Controller
         // Créer un nouveau projet
         $project = Project::create($validated);
 
-        // Retourner le projet créé avec un code de statut HTTP 201
+        // Retourner le projet créé avec un code de statut HTTP 201 : Ressource créée
         return response()->json([
             'project' => $project,
             'message' => 'Projet créé avec succès.'
         ], 201);
+    }
+
+    public function index()
+    {
+        // Récupérer tous les projets
+        $projects = Project::all();
+
+        // Retourner les projets avec un code de statut HTTP 200: OK
+        return response()->json([
+            'projects' => $projects
+        ], 200);
     }
 }
