@@ -4,7 +4,7 @@ import api from './apiConfig'
 export const createProject = async (projectData) => {
     try {
         // envoyer les données du projet au serveur via une requête POST
-        const response = await api.post('/project', projectData)
+        const response = await api.post('/projects', projectData)
         return response.data // retourner les données du projet
 
     } catch (error) {
