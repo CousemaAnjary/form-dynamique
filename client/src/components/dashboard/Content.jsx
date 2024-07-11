@@ -125,5 +125,5 @@ export default function Content() {
                 customStyles={customStyles}
             />
         </div>
-    );
+    )
 }
