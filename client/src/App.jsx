@@ -24,6 +24,5 @@ export default function App() {
         <Route path="/new-form" element={<NewForm />} />
       </Routes>
     </>
-
   )
 }
