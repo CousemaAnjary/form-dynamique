@@ -4,7 +4,6 @@ import { useState } from "react"
 import { Plus } from 'lucide-react'
 import { useForm } from "react-hook-form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { useNavigate } from 'react-router-dom'
 import { Button } from "@/components/ui/button"
 import { zodResolver } from "@hookform/resolvers/zod"
