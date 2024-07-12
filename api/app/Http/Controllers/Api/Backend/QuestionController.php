@@ -47,8 +47,8 @@ class QuestionController extends Controller
         $validated = $request->validate([
             'label' => 'required|string|max:255',
             'type' => 'required|string|max:50',
+            'placeholder' => 'nullable|string|max:255',
             'required' => 'boolean',
-            'position' => 'integer',
         ]);
 
         $question = Question::findOrFail($id);
