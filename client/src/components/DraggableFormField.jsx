@@ -1,6 +1,21 @@
 import React, { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { Settings, Trash, Copy } from 'lucide-react';
+import { Text, Mail, KeyRound, Radio, ListTodo, TextSelect, File, Calendar } from 'lucide-react';
+import { TbNumber123 } from "react-icons/tb";
+
+// Définir les icônes pour chaque type de champ
+const iconMap = {
+    text: <Text className="w-5 h-5" />,
+    email: <Mail className="w-5 h-5" />,
+    password: <KeyRound className="w-5 h-5" />,
+    radio: <Radio className="w-5 h-5" />,
+    checkbox: <ListTodo className="w-5 h-5" />,
+    select: <TextSelect className="w-5 h-5" />,
+    file: <File className="w-5 h-5" />,
+    date: <Calendar className="w-5 h-5" />,
+    number: <TbNumber123 className="w-5 h-5" />,
+};
 
 const ItemType = 'FIELD';
 
@@ -52,8 +67,7 @@ const DraggableFormField = ({ id, index, type, label, placeholder, moveField }) 
         <div ref={ref} className={`flex items-center border rounded p-2 my-2 bg-white relative ${isDragging ? 'opacity-50' : ''}`}>
             <div className="flex items-center space-x-2 w-full">
                 <div className="p-2 bg-gray-100 rounded">
-                    {type === 'text' ? <span>abc</span> : null}
-                    {/* Ajouter d'autres types d'icônes ici */}
+                    {iconMap[type] || <Text className="w-5 h-5" />}
                 </div>
                 <div className="flex-grow">
                     <div className="font-semibold">{label}</div>
