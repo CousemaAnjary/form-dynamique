@@ -11,7 +11,6 @@ import { createProject } from "@/services/projectService"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog"
 
-
 // Définir le schéma de validation avec Zod 
 const formSchema = z.object({
     title: z.string().min(1, { message: "Le titre est requis" }),
@@ -21,9 +20,6 @@ const formSchema = z.object({
 })
 
 export default function ProjectDialog({ sidebarOpen }) {
-    /**
-     * ! STATE (état, données) de l'application
-     */
     const navigate = useNavigate()
 
     const form = useForm({
@@ -34,15 +30,9 @@ export default function ProjectDialog({ sidebarOpen }) {
             table_name: '',
             status: 'brouillon',
         },
-
     })
 
-    /**
-     * ! COMPORTEMENT (méthodes, fonctions) de l'application
-     */
-
     const handleSubmit = async (data) => {
-        //Données à envoyer pour la création du projet
         const projectData = {
             title: data.title,
             description: data.description,
@@ -52,17 +42,13 @@ export default function ProjectDialog({ sidebarOpen }) {
 
         try {
             const response = await createProject(projectData)
-            // Rediriger l'utilisateur vers la page de création de formulaire
-            navigate('/new-form');
-
+            const projectId = response.project.id 
+            navigate(`/new-form/${projectId}`);
         } catch (error) {
             console.error('Erreur lors de la création du projet', error)
         }
     }
 
-    /**
-     * ! AFFICHAGE (render) de l'application
-     */
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -130,7 +116,6 @@ export default function ProjectDialog({ sidebarOpen }) {
                         </DialogFooter>
                     </form>
                 </Form>
-
             </DialogContent>
         </Dialog>
     );

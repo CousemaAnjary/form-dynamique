@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, X } from 'lucide-react';
@@ -6,8 +6,26 @@ import TypeOptions from './TypeOptions';
 import DraggableFormField from './DraggableFormField';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { getProjectById } from '@/services/projectService';
+import { useParams } from 'react-router-dom';
 
 export default function FormContainer() {
+    const { id } = useParams(); // Récupérer l'ID du projet depuis l'URL
+    const [project, setProject] = useState(null);
+
+    useEffect(() => {
+        const fetchProject = async () => {
+            try {
+                const projectData = await getProjectById(id);
+                setProject(projectData);
+            } catch (error) {
+                console.error('Erreur lors de la récupération du projet : ', error);
+            }
+        };
+
+        fetchProject();
+    }, [id]);
+
     const [showQuestionInput, setShowQuestionInput] = useState(false);
     const [showTypeOptions, setShowTypeOptions] = useState(false);
     const [fields, setFields] = useState([]);
@@ -40,6 +58,8 @@ export default function FormContainer() {
         setFields(updatedFields);
     };
 
+    if (!project) return <div>Chargement...</div>;
+
     return (
         <>
             <div className="shadow">
@@ -50,7 +70,7 @@ export default function FormContainer() {
                             type="text"
                             className="border rounded px-4 py-2"
                             placeholder="Titre"
-                            defaultValue="Formulaire de contact"
+                            value={project.title} // Afficher le titre du projet
                             disabled
                         />
                     </div>
