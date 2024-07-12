@@ -8,7 +8,7 @@ import QuestionSettings from './QuestionSettings';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { getProjectById } from '@/services/projectService';
-import { getQuestionsByProjectId, createQuestion, updateQuestion, deleteQuestion } from '@/services/questionService';
+import { getQuestionsByProjectId, createQuestion, updateQuestion, deleteQuestion, updateQuestionPosition } from '@/services/questionService';
 import { useParams } from 'react-router-dom';
 
 export default function FormContainer() {
