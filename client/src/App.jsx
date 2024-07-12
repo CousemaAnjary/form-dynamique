@@ -21,7 +21,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/new-form" element={<NewForm />} />
+        <Route path="/new-form/:id" element={<NewForm />} />
       </Routes>
     </>
   )

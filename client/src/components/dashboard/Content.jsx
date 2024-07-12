@@ -1,5 +1,6 @@
 import { MoreHorizontal } from 'lucide-react'
 import { Input } from "@/components/ui/input"
+import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import React, { useState, useEffect } from 'react'
 import DataTable from 'react-data-table-component'
@@ -11,6 +12,7 @@ export default function Content() {
     /**
      * ! STATE (état, données) de l'application
      */
+    const navigate = useNavigate();
     const [records, setRecords] = useState([])
     const [filter, setFilter] = useState('')
 
@@ -100,6 +102,11 @@ export default function Content() {
         row.title.toLowerCase().includes(filter.toLowerCase())
     )
 
+    // Rediriger vers le formulaire de création/modification d'un projet
+    const handleRowClick = (row) => {
+        navigate(`/new-form/${row.id}`)
+    }
+
     /**
      * ! AFFICHAGE (render) de l'application
      */
@@ -123,6 +130,7 @@ export default function Content() {
                 highlightOnHover
                 pointerOnHover
                 customStyles={customStyles}
+                onRowClicked={handleRowClick}
             />
         </div>
     )
