@@ -144,11 +144,11 @@ export default function FormContainer() {
                         </Button>
                     )}
                     {showQuestionInput && (
-                        <div className="flex justify-between items-center p-2 bg-white">
+                        <div className="flex justify-between items-center p-2 bg-white ">
                             <Input
                                 type="text"
                                 className="flex-grow px-4 py-2 mr-2 shadow-sm"
-                                placeholder="Votre libellé..."
+                                placeholder="Veuillez saisir le libellé de la question"
                                 value={questionLabel} // Lier l'input à l'état questionLabel
                                 onChange={(e) => setQuestionLabel(e.target.value)} // Mettre à jour l'état questionLabel
                             />
@@ -178,7 +178,7 @@ export default function FormContainer() {
                                         placeholder={field.placeholder}
                                         moveField={moveField}
                                         onSettingsClick={() => handleSettingsClick(field)}
-                                        onDelete={() => handleDeleteQuestion(field.id)} 
+                                        onDelete={() => handleDeleteQuestion(field.id)}
                                     />
                                     {selectedQuestion && selectedQuestion.id === field.id && (
                                         <QuestionSettings
