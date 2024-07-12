@@ -159,11 +159,13 @@ export default function FormContainer() {
                         </div>
                     )}
                 </div>
-                
+
                 {showTypeOptions && (
                     <TypeOptions onSelectType={handleAddTypeClick} />
                 )}
+                
                 {questions.length > 0 && (
+
                     <div className="mt-7 border p-4">
                         <DndProvider backend={HTML5Backend}>
                             {questions.map((field, index) => (
