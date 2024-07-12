@@ -7,7 +7,7 @@ import DraggableFormField from './DraggableFormField';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { getProjectById } from '@/services/projectService';
-import { getQuestionsByProjectId, createQuestion, updateQuestion, deleteQuestion } from '@/services/questionService';
+import { getQuestionsByProjectId, createQuestion, updateQuestion, updateQuestionPosition, deleteQuestion } from '@/services/questionService';
 import { useParams } from 'react-router-dom';
 
 export default function FormContainer() {
@@ -75,11 +75,21 @@ export default function FormContainer() {
         }
     };
 
-    const moveField = (dragIndex, hoverIndex) => {
+    const moveField = async (dragIndex, hoverIndex) => {
         const draggedField = questions[dragIndex];
         const updatedFields = [...questions];
         updatedFields.splice(dragIndex, 1);
         updatedFields.splice(hoverIndex, 0, draggedField);
+
+        // Mettre à jour les positions dans la base de données
+        try {
+            for (let i = 0; i < updatedFields.length; i++) {
+                await updateQuestionPosition(updatedFields[i].id, { position: i });
+            }
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour de la position des questions : ', error);
+        }
+
         setQuestions(updatedFields);
     };
 

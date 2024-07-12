@@ -60,6 +60,21 @@ class QuestionController extends Controller
         ]);
     }
 
+    public function updatePosition(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'position' => 'required|integer',
+        ]);
+
+        $question = Question::findOrFail($id);
+        $question->update(['position' => $validated['position']]);
+
+        return response()->json([
+            'question' => $question,
+            'message' => 'Position mise à jour avec succès.'
+        ]);
+    }
+
     public function destroy($id)
     {
         $question = Question::findOrFail($id);
