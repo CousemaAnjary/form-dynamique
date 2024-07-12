@@ -84,4 +84,4 @@ const DraggableFormField = ({ id, index, type, label, placeholder, moveField }) 
     );
 };
 
-export default DraggableFormField;
+export default DraggableFormField
