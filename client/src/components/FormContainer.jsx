@@ -11,6 +11,7 @@ import { getProjectById } from '@/services/projectService';
 import { getQuestionsByProjectId, createQuestion, updateQuestionPosition, deleteQuestion } from '@/services/questionService';
 import { useParams } from 'react-router-dom';
 
+
 export default function FormContainer() {
     const { id } = useParams(); // Récupérer l'ID du projet depuis l'URL
     const [project, setProject] = useState(null);
@@ -131,7 +132,6 @@ export default function FormContainer() {
                 <div className="border rounded p-6 text-center relative">
                     {!showQuestionInput && (
                         <p className="text-gray-500">
-                            Ce formulaire est actuellement vide.
                             Vous pouvez ajouter des questions, notes, messages-guide ou autres champs en cliquant sur le signe « + » plus bas.
                         </p>
                     )}
