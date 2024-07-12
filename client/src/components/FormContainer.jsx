@@ -163,7 +163,7 @@ export default function FormContainer() {
                 {showTypeOptions && (
                     <TypeOptions onSelectType={handleAddTypeClick} />
                 )}
-                
+
                 {questions.length > 0 && (
 
                     <div className="mt-7 border p-4">
@@ -178,7 +178,7 @@ export default function FormContainer() {
                                         placeholder={field.placeholder}
                                         moveField={moveField}
                                         onSettingsClick={() => handleSettingsClick(field)}
-                                        onDelete={() => handleDeleteQuestion(field.id)} // Passer handleDeleteQuestion
+                                        onDelete={() => handleDeleteQuestion(field.id)} 
                                     />
                                     {selectedQuestion && selectedQuestion.id === field.id && (
                                         <QuestionSettings
