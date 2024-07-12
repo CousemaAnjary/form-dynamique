@@ -158,8 +158,8 @@ export default function FormContainer() {
                             </Button>
                         </div>
                     )}
-
                 </div>
+                
                 {showTypeOptions && (
                     <TypeOptions onSelectType={handleAddTypeClick} />
                 )}
