@@ -23,3 +23,15 @@ export const getProjects = async () => {
         console.error('Erreur lors de la récupération des projets : ', error)
     }
 }
+
+// récupérer un projet par son id
+export const getProjectById = async (id) => {
+    try {
+        // envoyer une requête GET au serveur pour récupérer le projet par son id
+        const response = await api.get(`/project/${id}`)
+        return response.data.project // retourner le projet
+
+    } catch (error) {
+        console.error('Erreur lors de la récupération du projet : ', error)
+    }
+}
