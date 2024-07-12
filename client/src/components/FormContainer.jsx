@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Plus, X } from 'lucide-react';
 import TypeOptions from './TypeOptions';
 import DraggableFormField from './DraggableFormField';
-import QuestionSettings from './QuestionSettings'; // Importer QuestionSettings
+import QuestionSettings from './QuestionSettings'; 
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { getProjectById } from '@/services/projectService';
