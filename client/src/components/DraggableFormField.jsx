@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { TbNumber123 } from "react-icons/tb";
 import { useDrag, useDrop } from 'react-dnd';
-import { Settings, Trash, Copy } from 'lucide-react';
+import { Settings, Trash } from 'lucide-react';
 import { Text, Mail, KeyRound, Radio, ListTodo, TextSelect, File, Calendar } from 'lucide-react';
 
 // Définir les icônes pour chaque type de champ
