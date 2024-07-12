@@ -1,11 +1,11 @@
 import { X } from 'lucide-react';
-import { useForm } from "react-hook-form"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { updateQuestion } from '@/services/questionService'
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
+import { useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { updateQuestion } from '@/services/questionService';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function QuestionSettings({ question, onClose }) {
     /**
@@ -15,10 +15,10 @@ export default function QuestionSettings({ question, onClose }) {
         defaultValues: {
             label: question.label,
             type: question.type,
-            placeholder: '',
-            required: question.required,
+            placeholder: question.placeholder,
+            required: question.required ? 'true' : 'false',
         },
-    })
+    });
 
     /**
      * ! COMPORTEMENT (méthodes, fonctions) de l'application
@@ -30,24 +30,27 @@ export default function QuestionSettings({ question, onClose }) {
             label: data.label,
             type: data.type,
             placeholder: data.placeholder,
-            required: data.required,
-        }
+            required: data.required === 'true', // Convertir en booléen pour l'envoi
+        };
 
         try {
             // Appeler le service pour mettre à jour une question
-            const response = await updateQuestion(question.id, questionData)
-            onClose() // Fermer les paramètres après la sauvegarde
+            const response = await updateQuestion(question.id, questionData);
+           
+            // Recharger la page pour afficher les modifications
+            window.location.reload();
+            
 
         } catch (error) {
-            console.error('Erreur lors de la mise à jour de la question', error)
+            console.error('Erreur lors de la mise à jour de la question', error);
         }
-    }
+    };
 
     /**
      * ! AFFICHAGE (render) de l'application
      */
     return (
-        <div className="border rounded p-6 ">
+        <div className="border rounded p-6">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Modifier la question</h2>
                 <Button variant="outline" size="sm" className="ml-2" onClick={onClose}>
@@ -92,11 +95,11 @@ export default function QuestionSettings({ question, onClose }) {
                             name="type"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>type</FormLabel>
+                                    <FormLabel>Type</FormLabel>
                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                                         <FormControl>
                                             <SelectTrigger>
-                                                <SelectValue placeholder="Select a verified email to display" />
+                                                <SelectValue placeholder="Select a type" />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
@@ -130,7 +133,7 @@ export default function QuestionSettings({ question, onClose }) {
                                         >
                                             <FormItem className="flex items-center space-x-3 space-y-0">
                                                 <FormControl>
-                                                    <RadioGroupItem value="all" />
+                                                    <RadioGroupItem value="true" />
                                                 </FormControl>
                                                 <FormLabel className="font-normal">
                                                     Oui
@@ -138,13 +141,12 @@ export default function QuestionSettings({ question, onClose }) {
                                             </FormItem>
                                             <FormItem className="flex items-center space-x-3 space-y-0">
                                                 <FormControl>
-                                                    <RadioGroupItem value="mentions" />
+                                                    <RadioGroupItem value="false" />
                                                 </FormControl>
                                                 <FormLabel className="font-normal">
-                                                    Nom
+                                                    Non
                                                 </FormLabel>
                                             </FormItem>
-
                                         </RadioGroup>
                                     </FormControl>
                                     <FormMessage />

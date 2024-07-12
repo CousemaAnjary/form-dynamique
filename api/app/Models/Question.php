@@ -12,6 +12,7 @@ class Question extends Model
     protected $fillable = [
         'label',
         'type',
+        'placeholder',
         'required',
         'position',
         'project_id',
