@@ -4,10 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Plus, X } from 'lucide-react';
 import TypeOptions from './TypeOptions';
 import DraggableFormField from './DraggableFormField';
+import QuestionSettings from './QuestionSettings';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { getProjectById } from '@/services/projectService';
-import { getQuestionsByProjectId, createQuestion, updateQuestion, updateQuestionPosition, deleteQuestion } from '@/services/questionService';
+import { getQuestionsByProjectId, createQuestion, updateQuestion, deleteQuestion } from '@/services/questionService';
 import { useParams } from 'react-router-dom';
 
 export default function FormContainer() {
@@ -15,6 +16,7 @@ export default function FormContainer() {
     const [project, setProject] = useState(null);
     const [questions, setQuestions] = useState([]);
     const [questionLabel, setQuestionLabel] = useState(''); // Ajoutez cet état pour le libellé de la question
+    const [selectedQuestion, setSelectedQuestion] = useState(null); // État pour la question sélectionnée
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -76,21 +78,23 @@ export default function FormContainer() {
     };
 
     const moveField = async (dragIndex, hoverIndex) => {
-        const draggedField = questions[dragIndex];
-        const updatedFields = [...questions];
-        updatedFields.splice(dragIndex, 1);
-        updatedFields.splice(hoverIndex, 0, draggedField);
+        const updatedQuestions = [...questions];
+        const [movedQuestion] = updatedQuestions.splice(dragIndex, 1);
+        updatedQuestions.splice(hoverIndex, 0, movedQuestion);
+
+        setQuestions(updatedQuestions);
 
         // Mettre à jour les positions dans la base de données
         try {
-            for (let i = 0; i < updatedFields.length; i++) {
-                await updateQuestionPosition(updatedFields[i].id, { position: i });
-            }
+            await updateQuestion(movedQuestion.id, { position: hoverIndex });
+            await updateQuestion(updatedQuestions[dragIndex].id, { position: dragIndex });
         } catch (error) {
-            console.error('Erreur lors de la mise à jour de la position des questions : ', error);
+            console.error('Erreur lors de la mise à jour de la position de la question : ', error);
         }
+    };
 
-        setQuestions(updatedFields);
+    const handleSettingsClick = (question) => {
+        setSelectedQuestion(question);
     };
 
     if (!project) return <div>Chargement...</div>;
@@ -151,15 +155,24 @@ export default function FormContainer() {
                     <div className="mt-7 border p-4">
                         <DndProvider backend={HTML5Backend}>
                             {questions.map((field, index) => (
-                                <DraggableFormField
-                                    key={field.id}
-                                    id={field.id}
-                                    index={index}
-                                    type={field.type}
-                                    label={field.label}
-                                    placeholder={field.placeholder}
-                                    moveField={moveField}
-                                />
+                                <>
+                                    <DraggableFormField
+                                        key={field.id}
+                                        id={field.id}
+                                        index={index}
+                                        type={field.type}
+                                        label={field.label}
+                                        placeholder={field.placeholder}
+                                        moveField={moveField}
+                                        onSettingsClick={() => handleSettingsClick(field)} // Ajouter cette ligne
+                                    />
+                                    {selectedQuestion && selectedQuestion.id === field.id && (
+                                        <QuestionSettings
+                                            question={selectedQuestion}
+                                            onClose={() => setSelectedQuestion(null)}
+                                        />
+                                    )}
+                                </>
                             ))}
                         </DndProvider>
                     </div>

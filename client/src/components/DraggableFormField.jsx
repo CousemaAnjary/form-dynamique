@@ -1,9 +1,8 @@
-import React, { useRef } from 'react'
-import { TbNumber123 } from "react-icons/tb"
-import { useDrag, useDrop } from 'react-dnd'
-import { Settings, Trash, Copy } from 'lucide-react'
-import { Text, Mail, KeyRound, Radio, ListTodo, TextSelect, File, Calendar } from 'lucide-react'
-
+import React, { useRef } from 'react';
+import { TbNumber123 } from "react-icons/tb";
+import { useDrag, useDrop } from 'react-dnd';
+import { Settings, Trash, Copy } from 'lucide-react';
+import { Text, Mail, KeyRound, Radio, ListTodo, TextSelect, File, Calendar } from 'lucide-react';
 
 // Définir les icônes pour chaque type de champ
 const iconMap = {
@@ -20,7 +19,7 @@ const iconMap = {
 
 const ItemType = 'FIELD';
 
-const DraggableFormField = ({ id, index, type, label, placeholder, moveField }) => {
+const DraggableFormField = ({ id, index, type, label, placeholder, moveField, onSettingsClick }) => {
     const ref = useRef(null);
 
     const [, drop] = useDrop({
@@ -75,7 +74,7 @@ const DraggableFormField = ({ id, index, type, label, placeholder, moveField }) 
                     <div className="text-gray-500 italic">{placeholder}</div>
                 </div>
                 <div className="absolute right-0 flex items-center space-x-2 p-2">
-                    <Settings className="w-5 h-5 text-gray-600 cursor-pointer" />
+                    <Settings className="w-5 h-5 text-gray-600 cursor-pointer" onClick={onSettingsClick} />
                     <Trash className="w-5 h-5 text-red-600 cursor-pointer" />
                     <Copy className="w-5 h-5 text-blue-600 cursor-pointer" />
                 </div>
@@ -84,4 +83,4 @@ const DraggableFormField = ({ id, index, type, label, placeholder, moveField }) 
     );
 };
 
-export default DraggableFormField
+export default DraggableFormField;
