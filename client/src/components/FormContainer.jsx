@@ -139,20 +139,20 @@ export default function FormContainer() {
                         <div className="flex justify-between items-center p-4 bg-white">
                             <Input
                                 type="text"
-                                className="flex-grow px-4 py-2 mr-2"
+                                className="flex-grow px-4 py-2 mr-2 shadow-sm"
                                 placeholder="Votre libellé..."
                                 value={questionLabel} // Lier l'input à l'état questionLabel
                                 onChange={(e) => setQuestionLabel(e.target.value)} // Mettre à jour l'état questionLabel
                             />
-                            <Button className="bg-blue-900 rounded-sm text-white" onClick={() => setShowTypeOptions(true)}>Ajouter un type</Button>
-                            <Button variant="outline" className="ml-2" onClick={handleCloseClick}>
+                            <Button className="bg-blue-900 rounded-sm text-white"  size="sm" onClick={() => setShowTypeOptions(true)}>Ajouter un type</Button>
+                            <Button variant="outline" size="sm" className="ml-2 p-2" onClick={handleCloseClick}>
                                 <X size={16} />
                             </Button>
                         </div>
                     )}
                     {!showQuestionInput && (
                         <Button
-                            className="absolute left-0 top-7 transform translate-x-[-50%] translate-y-[-50%] rounded-full p-2 flex items-center justify-center bg-blue-900"
+                            className="absolute left-0 top-9 transform translate-x-[-50%] translate-y-[-50%] rounded-full p-2 flex items-center justify-center bg-blue-900"
                             onClick={handleAddQuestionClick}
                         >
                             <Plus size={24} />
