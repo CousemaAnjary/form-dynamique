@@ -76,7 +76,6 @@ const DraggableFormField = ({ id, index, type, label, placeholder, moveField, on
                 <div className="absolute right-0 flex items-center space-x-2 p-2">
                     <Settings className="w-5 h-5 text-gray-600 cursor-pointer" onClick={onSettingsClick} />
                     <Trash className="w-5 h-5 text-red-600 cursor-pointer" />
-                    <Copy className="w-5 h-5 text-blue-600 cursor-pointer" />
                 </div>
             </div>
         </div>
