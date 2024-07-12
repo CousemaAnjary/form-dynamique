@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Plus, X } from 'lucide-react';
-import TypeOptions from './TypeOptions';
-import DraggableFormField from './DraggableFormField';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { getProjectById } from '@/services/projectService';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Plus, X } from 'lucide-react'
+import TypeOptions from './TypeOptions'
+import DraggableFormField from './DraggableFormField'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { getProjectById } from '@/services/projectService'
+import { useParams } from 'react-router-dom'
+import { createQuestion } from '@/services/questionService'
 
 export default function FormContainer() {
     const { id } = useParams(); // Récupérer l'ID du projet depuis l'URL
