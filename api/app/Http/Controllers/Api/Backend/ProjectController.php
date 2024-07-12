@@ -34,4 +34,15 @@ class ProjectController extends Controller
             'projects' => $projects
         ], 200);
     }
+
+    public function show($id)
+    {
+        // Récupérer le projet avec l'identifiant $id
+        $project = Project::findOrFail($id);
+
+        // Retourner le projet avec un code de statut HTTP 200: OK
+        return response()->json([
+            'project' => $project
+        ], 200);
+    }
 }
