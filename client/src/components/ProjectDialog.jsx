@@ -42,8 +42,8 @@ export default function ProjectDialog({ sidebarOpen }) {
 
         try {
             const response = await createProject(projectData)
-            const projectId = response.project.id 
-            navigate(`/new-form/${projectId}`);
+            const id = response.project.id 
+            navigate(`/new-form/${id}`);
         } catch (error) {
             console.error('Erreur lors de la création du projet', error)
         }
