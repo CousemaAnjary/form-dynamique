@@ -116,12 +116,12 @@ export default function FormContainer() {
             <div className="shadow">
                 <div className="container-fluid mx-20 flex justify-between items-center h-20">
                     <div className="flex items-center space-x-2">
-                        <h1 className="text-2xl font-semibold">Projet</h1>
+                        <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight lg:text-2xl font-serif">Projet</h1>
                         <Input
                             type="text"
                             className="border rounded px-4 py-2"
                             placeholder="Titre"
-                            value={project.title} // Afficher le titre du projet
+                            value={project.title}
                             disabled
                         />
                     </div>
