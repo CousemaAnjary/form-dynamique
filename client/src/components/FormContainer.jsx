@@ -144,7 +144,7 @@ export default function FormContainer() {
                         </Button>
                     )}
                     {showQuestionInput && (
-                        <div className="flex justify-between items-center p-4 bg-white">
+                        <div className="flex justify-between items-center p-2 bg-white">
                             <Input
                                 type="text"
                                 className="flex-grow px-4 py-2 mr-2 shadow-sm"
