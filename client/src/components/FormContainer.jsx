@@ -8,7 +8,7 @@ import QuestionSettings from './QuestionSettings'; // Importer QuestionSettings
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { getProjectById } from '@/services/projectService';
-import { getQuestionsByProjectId, createQuestion, updateQuestion, updateQuestionPosition, deleteQuestion } from '@/services/questionService';
+import { getQuestionsByProjectId, createQuestion,  updateQuestionPosition, deleteQuestion } from '@/services/questionService';
 import { useParams } from 'react-router-dom';
 
 export default function FormContainer() {
@@ -165,7 +165,7 @@ export default function FormContainer() {
                                         label={field.label}
                                         placeholder={field.placeholder}
                                         moveField={moveField}
-                                        onSettingsClick={() => handleSettingsClick(field)} // Ajouter cette ligne
+                                        onSettingsClick={() => handleSettingsClick(field)} 
                                     />
                                     {selectedQuestion && selectedQuestion.id === field.id && (
                                         <QuestionSettings
