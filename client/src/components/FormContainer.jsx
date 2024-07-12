@@ -6,7 +6,7 @@ import TypeOptions from './TypeOptions';
 import DraggableFormField from './DraggableFormField';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { getProjectById } from '@/services/projectService'; // Corriger cette ligne
+import { getProjectById } from '@/services/projectService';
 import { getQuestionsByProjectId, createQuestion, updateQuestion, deleteQuestion } from '@/services/questionService';
 import { useParams } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ export default function FormContainer() {
     const { id } = useParams(); // Récupérer l'ID du projet depuis l'URL
     const [project, setProject] = useState(null);
     const [questions, setQuestions] = useState([]);
+    const [questionLabel, setQuestionLabel] = useState(''); // Ajoutez cet état pour le libellé de la question
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -54,11 +55,12 @@ export default function FormContainer() {
     const handleCloseClick = () => {
         setShowQuestionInput(false);
         setShowTypeOptions(false);
+        setQuestionLabel(''); // Réinitialiser le libellé de la question
     };
 
     const addField = async (type) => {
         const newQuestion = {
-            label: 'Nom',
+            label: questionLabel || 'Nom', // Utilisez la valeur de questionLabel
             type,
             required: false,
             position: questions.length,
@@ -67,6 +69,7 @@ export default function FormContainer() {
         try {
             const createdQuestion = await createQuestion(newQuestion);
             setQuestions([...questions, createdQuestion]);
+            setQuestionLabel(''); // Réinitialiser le libellé après l'ajout
         } catch (error) {
             console.error('Erreur lors de la création de la question : ', error);
         }
@@ -101,7 +104,7 @@ export default function FormContainer() {
             </div>
             <div className="container mx-auto mt-10">
                 <div className="border rounded p-6 text-center relative">
-                    {!showQuestionInput  && (
+                    {!showQuestionInput && (
                         <p className="text-gray-500">
                             Ce formulaire est actuellement vide.
                             Vous pouvez ajouter des questions, notes, messages-guide ou autres champs en cliquant sur le signe « + » plus bas.
@@ -109,7 +112,13 @@ export default function FormContainer() {
                     )}
                     {showQuestionInput && (
                         <div className="flex justify-between items-center p-4 bg-white">
-                            <Input type="text" className="flex-grow px-4 py-2 mr-2" placeholder="Votre libellé..." />
+                            <Input
+                                type="text"
+                                className="flex-grow px-4 py-2 mr-2"
+                                placeholder="Votre libellé..."
+                                value={questionLabel} // Lier l'input à l'état questionLabel
+                                onChange={(e) => setQuestionLabel(e.target.value)} // Mettre à jour l'état questionLabel
+                            />
                             <Button className="bg-blue-900 rounded-sm text-white" onClick={() => setShowTypeOptions(true)}>Ajouter un type</Button>
                             <Button variant="outline" className="ml-2" onClick={handleCloseClick}>
                                 <X size={16} />
