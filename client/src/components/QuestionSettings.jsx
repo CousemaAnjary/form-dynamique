@@ -8,9 +8,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function QuestionSettings({ question, onClose }) {
-    /**
-   * ! STATE (état, données) de l'application
-   */
     const form = useForm({
         defaultValues: {
             label: question.label,
@@ -20,35 +17,22 @@ export default function QuestionSettings({ question, onClose }) {
         },
     });
 
-    /**
-     * ! COMPORTEMENT (méthodes, fonctions) de l'application
-     */
     const handleSubmit = async (data) => {
-
-        // Données à envoyer au serveur pour mettre à jour une question
         const questionData = {
             label: data.label,
             type: data.type,
             placeholder: data.placeholder,
-            required: data.required === 'true', // Convertir en booléen pour l'envoi
+            required: data.required === 'true',
         };
 
         try {
-            // Appeler le service pour mettre à jour une question
             const response = await updateQuestion(question.id, questionData);
-           
-            // Recharger la page pour afficher les modifications
             window.location.reload();
-            
-
         } catch (error) {
             console.error('Erreur lors de la mise à jour de la question', error);
         }
     };
 
-    /**
-     * ! AFFICHAGE (render) de l'application
-     */
     return (
         <div className="border rounded p-6">
             <div className="flex justify-between items-center mb-4">
@@ -154,7 +138,9 @@ export default function QuestionSettings({ question, onClose }) {
                             )}
                         />
                     </div>
-                    <Button type='submit' className="bg-blue-900">Enregistrer</Button>
+                    <div className="text-end">
+                        <Button type='submit' className="bg-blue-900">Enregistrer</Button>
+                    </div>
                 </form>
             </Form>
         </div>

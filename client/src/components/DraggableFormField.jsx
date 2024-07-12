@@ -19,7 +19,7 @@ const iconMap = {
 
 const ItemType = 'FIELD';
 
-const DraggableFormField = ({ id, index, type, label, placeholder, moveField, onSettingsClick }) => {
+const DraggableFormField = ({ id, index, type, label, placeholder, moveField, onSettingsClick, onDelete }) => {
     const ref = useRef(null);
 
     const [, drop] = useDrop({
@@ -75,7 +75,7 @@ const DraggableFormField = ({ id, index, type, label, placeholder, moveField, on
                 </div>
                 <div className="absolute right-0 flex items-center space-x-2 p-2">
                     <Settings className="w-5 h-5 text-gray-600 cursor-pointer" onClick={onSettingsClick} />
-                    <Trash className="w-5 h-5 text-red-600 cursor-pointer" />
+                    <Trash className="w-5 h-5 text-red-600 cursor-pointer" onClick={onDelete} />
                 </div>
             </div>
         </div>

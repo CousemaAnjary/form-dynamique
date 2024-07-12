@@ -4,11 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Plus, X } from 'lucide-react';
 import TypeOptions from './TypeOptions';
 import DraggableFormField from './DraggableFormField';
-import QuestionSettings from './QuestionSettings'; 
+import QuestionSettings from './QuestionSettings';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { getProjectById } from '@/services/projectService';
-import { getQuestionsByProjectId, createQuestion,  updateQuestionPosition, deleteQuestion } from '@/services/questionService';
+import { getQuestionsByProjectId, createQuestion, updateQuestionPosition, deleteQuestion } from '@/services/questionService';
 import { useParams } from 'react-router-dom';
 
 export default function FormContainer() {
@@ -95,6 +95,15 @@ export default function FormContainer() {
         setSelectedQuestion(question);
     };
 
+    const handleDeleteQuestion = async (id) => {
+        try {
+            await deleteQuestion(id);
+            setQuestions(questions.filter(question => question.id !== id));
+        } catch (error) {
+            console.error('Erreur lors de la suppression de la question : ', error);
+        }
+    };
+
     const handleCloseSettings = () => {
         setSelectedQuestion(null);
     };
@@ -165,7 +174,8 @@ export default function FormContainer() {
                                         label={field.label}
                                         placeholder={field.placeholder}
                                         moveField={moveField}
-                                        onSettingsClick={() => handleSettingsClick(field)} 
+                                        onSettingsClick={() => handleSettingsClick(field)}
+                                        onDelete={() => handleDeleteQuestion(field.id)} // Passer handleDeleteQuestion
                                     />
                                     {selectedQuestion && selectedQuestion.id === field.id && (
                                         <QuestionSettings
