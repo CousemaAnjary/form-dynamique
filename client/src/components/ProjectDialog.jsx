@@ -20,6 +20,9 @@ const formSchema = z.object({
 })
 
 export default function ProjectDialog({ sidebarOpen }) {
+    /**
+     * ! STATE (état, données) de l'application
+     */
     const navigate = useNavigate()
 
     const form = useForm({
@@ -32,7 +35,12 @@ export default function ProjectDialog({ sidebarOpen }) {
         },
     })
 
+    /**
+     * ! COMPORTEMENT (méthodes, fonctions) de l'application
+     */
     const handleSubmit = async (data) => {
+
+        // Données à envoyer au serveur pour créer un projet
         const projectData = {
             title: data.title,
             description: data.description,
@@ -41,14 +49,19 @@ export default function ProjectDialog({ sidebarOpen }) {
         }
 
         try {
+            // Appeler le service pour créer un projet
             const response = await createProject(projectData)
-            const id = response.project.id 
-            navigate(`/new-form/${id}`);
+            const id = response.project.id // Récupérer l'ID du projet créé
+            navigate(`/new-form/${id}`) // Rediriger vers la page de création de formulaire
+
         } catch (error) {
             console.error('Erreur lors de la création du projet', error)
         }
     }
 
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
         <Dialog>
             <DialogTrigger asChild>
