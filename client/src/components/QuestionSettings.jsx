@@ -79,7 +79,7 @@ export default function QuestionSettings({ question, onClose }) {
                                 <FormItem>
                                     <FormLabel>Placeholder</FormLabel>
                                     <FormControl>
-                                        <Input {...field} className="shadow-sm" />
+                                        <Input {...field} placeholder="Veuillez saisir une placeholder" className="shadow-sm" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
