@@ -19,7 +19,7 @@ export default function QuestionSettings({ question, onClose }) {
     };
 
     return (
-        <div className="border rounded p-6 ">
+        <div className="border rounded p-6 mt ">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Modifier la question</h2>
                 <Button variant="outline" className="ml-2" onClick={onClose}>

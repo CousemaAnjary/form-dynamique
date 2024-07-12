@@ -17,7 +17,7 @@ export default function TypeOptions({ onSelectType }) {
     ];
 
     return (
-        <div className="border rounded p-4 bg-white mt-4">
+        <div className="border rounded p-4 bg-white ">
             <div className="grid grid-cols-3 gap-4">
                 {types.map((item) => (
                     <Button
