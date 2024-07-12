@@ -105,10 +105,10 @@ export default function FormContainer() {
     };
 
     const handleCloseSettings = () => {
-        setSelectedQuestion(null);
-    };
+        setSelectedQuestion(null)
+    }
 
-    if (!project) return <div>Chargement...</div>;
+    if (!project) return <div>Chargement...</div>
 
     return (
         <>
@@ -135,6 +135,14 @@ export default function FormContainer() {
                             Vous pouvez ajouter des questions, notes, messages-guide ou autres champs en cliquant sur le signe « + » plus bas.
                         </p>
                     )}
+                    {!showQuestionInput && (
+                        <Button
+                            className="absolute left-0 top-9 transform translate-x-[-50%] translate-y-[-50%] rounded-full p-2 flex items-center justify-center bg-blue-900"
+                            onClick={handleAddQuestionClick}
+                        >
+                            <Plus size={24} />
+                        </Button>
+                    )}
                     {showQuestionInput && (
                         <div className="flex justify-between items-center p-4 bg-white">
                             <Input
@@ -144,20 +152,13 @@ export default function FormContainer() {
                                 value={questionLabel} // Lier l'input à l'état questionLabel
                                 onChange={(e) => setQuestionLabel(e.target.value)} // Mettre à jour l'état questionLabel
                             />
-                            <Button className="bg-blue-900 rounded-sm text-white"  size="sm" onClick={() => setShowTypeOptions(true)}>Ajouter un type</Button>
+                            <Button className="bg-blue-900 rounded-sm text-white" size="sm" onClick={() => setShowTypeOptions(true)}>Ajouter un type</Button>
                             <Button variant="outline" size="sm" className="ml-2 p-2" onClick={handleCloseClick}>
                                 <X size={16} />
                             </Button>
                         </div>
                     )}
-                    {!showQuestionInput && (
-                        <Button
-                            className="absolute left-0 top-9 transform translate-x-[-50%] translate-y-[-50%] rounded-full p-2 flex items-center justify-center bg-blue-900"
-                            onClick={handleAddQuestionClick}
-                        >
-                            <Plus size={24} />
-                        </Button>
-                    )}
+
                 </div>
                 {showTypeOptions && (
                     <TypeOptions onSelectType={handleAddTypeClick} />
