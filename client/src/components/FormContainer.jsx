@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Plus, X } from 'lucide-react'
-import TypeOptions from './TypeOptions'
-import DraggableFormField from './DraggableFormField'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { getProjectById } from '@/services/projectService'
-import { useParams } from 'react-router-dom'
-import { createQuestion } from '@/services/questionService'
+import React, { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Plus, X } from 'lucide-react';
+import TypeOptions from './TypeOptions';
+import DraggableFormField from './DraggableFormField';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { getProjectById } from '@/services/projectService'; // Corriger cette ligne
+import { getQuestionsByProjectId, createQuestion, updateQuestion, deleteQuestion } from '@/services/questionService';
+import { useParams } from 'react-router-dom';
 
 export default function FormContainer() {
     const { id } = useParams(); // Récupérer l'ID du projet depuis l'URL
     const [project, setProject] = useState(null);
+    const [questions, setQuestions] = useState([]);
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -24,20 +25,30 @@ export default function FormContainer() {
             }
         };
 
+        const fetchQuestions = async () => {
+            try {
+                const questionsData = await getQuestionsByProjectId(id);
+                setQuestions(questionsData);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des questions : ', error);
+            }
+        };
+
         fetchProject();
+        fetchQuestions();
     }, [id]);
 
     const [showQuestionInput, setShowQuestionInput] = useState(false);
     const [showTypeOptions, setShowTypeOptions] = useState(false);
-    const [fields, setFields] = useState([]);
 
     const handleAddQuestionClick = () => {
         setShowQuestionInput(true);
         setShowTypeOptions(false);
     };
 
-    const handleAddTypeClick = () => {
-        setShowTypeOptions(true);
+    const handleAddTypeClick = (type) => {
+        addField(type);
+        setShowTypeOptions(false);
     };
 
     const handleCloseClick = () => {
@@ -45,18 +56,28 @@ export default function FormContainer() {
         setShowTypeOptions(false);
     };
 
-    const addField = (type) => {
-        setFields([...fields, { id: fields.length, type, label: 'Nom', placeholder: 'indice de question' }]);
-        setShowQuestionInput(false);
-        setShowTypeOptions(false);
+    const addField = async (type) => {
+        const newQuestion = {
+            label: 'Nom',
+            type,
+            required: false,
+            position: questions.length,
+            project_id: id,
+        };
+        try {
+            const createdQuestion = await createQuestion(newQuestion);
+            setQuestions([...questions, createdQuestion]);
+        } catch (error) {
+            console.error('Erreur lors de la création de la question : ', error);
+        }
     };
 
     const moveField = (dragIndex, hoverIndex) => {
-        const draggedField = fields[dragIndex];
-        const updatedFields = [...fields];
+        const draggedField = questions[dragIndex];
+        const updatedFields = [...questions];
         updatedFields.splice(dragIndex, 1);
         updatedFields.splice(hoverIndex, 0, draggedField);
-        setFields(updatedFields);
+        setQuestions(updatedFields);
     };
 
     if (!project) return <div>Chargement...</div>;
@@ -66,7 +87,7 @@ export default function FormContainer() {
             <div className="shadow">
                 <div className="container-fluid mx-20 flex justify-between items-center h-20">
                     <div className="flex items-center space-x-2">
-                        <h1 className="text-2xl font-semibold">projet</h1>
+                        <h1 className="text-2xl font-semibold">Projet</h1>
                         <Input
                             type="text"
                             className="border rounded px-4 py-2"
@@ -80,7 +101,7 @@ export default function FormContainer() {
             </div>
             <div className="container mx-auto mt-10">
                 <div className="border rounded p-6 text-center relative">
-                    {!showQuestionInput && (
+                    {!showQuestionInput  && (
                         <p className="text-gray-500">
                             Ce formulaire est actuellement vide.
                             Vous pouvez ajouter des questions, notes, messages-guide ou autres champs en cliquant sur le signe « + » plus bas.
@@ -89,7 +110,7 @@ export default function FormContainer() {
                     {showQuestionInput && (
                         <div className="flex justify-between items-center p-4 bg-white">
                             <Input type="text" className="flex-grow px-4 py-2 mr-2" placeholder="Votre libellé..." />
-                            <Button className="bg-blue-900 rounded-sm text-white" onClick={handleAddTypeClick}>Ajouter un type</Button>
+                            <Button className="bg-blue-900 rounded-sm text-white" onClick={() => setShowTypeOptions(true)}>Ajouter un type</Button>
                             <Button variant="outline" className="ml-2" onClick={handleCloseClick}>
                                 <X size={16} />
                             </Button>
@@ -105,12 +126,12 @@ export default function FormContainer() {
                     )}
                 </div>
                 {showTypeOptions && (
-                    <TypeOptions onSelectType={addField} />
+                    <TypeOptions onSelectType={handleAddTypeClick} />
                 )}
-                {fields.length > 0 && (
+                {questions.length > 0 && (
                     <div className="mt-7 border p-4">
                         <DndProvider backend={HTML5Backend}>
-                            {fields.map((field, index) => (
+                            {questions.map((field, index) => (
                                 <DraggableFormField
                                     key={field.id}
                                     id={field.id}

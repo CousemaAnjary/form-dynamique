@@ -23,4 +23,50 @@ class QuestionController extends Controller
             'message' => 'Question créée avec succès.'
         ], 201);
     }
+
+    public function index($projectId)
+    {
+        $questions = Question::where('project_id', $projectId)->get();
+
+        return response()->json([
+            'questions' => $questions
+        ]);
+    }
+
+    public function show($id)
+    {
+        $question = Question::findOrFail($id);
+
+        return response()->json([
+            'question' => $question
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'label' => 'required|string|max:255',
+            'type' => 'required|string|max:50',
+            'required' => 'boolean',
+            'position' => 'integer',
+        ]);
+
+        $question = Question::findOrFail($id);
+        $question->update($validated);
+
+        return response()->json([
+            'question' => $question,
+            'message' => 'Question mise à jour avec succès.'
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $question = Question::findOrFail($id);
+        $question->delete();
+
+        return response()->json([
+            'message' => 'Question supprimée avec succès.'
+        ]);
+    }
 }
