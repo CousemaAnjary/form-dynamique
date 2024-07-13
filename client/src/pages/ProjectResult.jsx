@@ -23,41 +23,47 @@ const ProjectResult = () => {
         fetchProjectData();
     }, [id]);
 
+    const formatName = (label) => {
+        return label.toLowerCase().replace(/ /g, '_');
+    };
+
+
     const renderInputField = (question) => {
+        const name = formatName(question.label);
         switch (question.type) {
             case 'text':
-                return <input type="text" name={question.label} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
+                return <input type="text" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
             case 'email':
-                return <input type="email" name={question.label} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
+                return <input type="email" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
             case 'password':
-                return <input type="password" name={question.label} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
+                return <input type="password" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
             case 'radio':
                 return (
                     question.options.map(option => (
                         <label key={option.value}>
-                            <input type="radio" name={question.label} value={option.value} />
+                            <input type="radio" name={name} value={option.value} />
                             {option.label}
                         </label>
                     ))
                 );
             case 'checkbox':
-                return <input type="checkbox" name={question.label} className="border rounded px-4 py-2" />;
+                return <input type="checkbox" name={name} className="border rounded px-4 py-2" />;
             case 'select':
                 return (
-                    <select name={question.label} className="border rounded px-4 py-2">
+                    <select name={name} className="border rounded px-4 py-2">
                         {question.options.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
                     </select>
                 );
             case 'file':
-                return <input type="file" name={question.label} className="border rounded px-4 py-2" />;
+                return <input type="file" name={name} className="border rounded px-4 py-2" />;
             case 'date':
-                return <input type="date" name={question.label} className="border rounded px-4 py-2" />;
+                return <input type="date" name={name} className="border rounded px-4 py-2" />;
             case 'number':
-                return <input type="number" name={question.label} className="border rounded px-4 py-2" />;
+                return <input type="number" name={name} className="border rounded px-4 py-2" />;
             default:
-                return <input type="text" name={question.label} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
+                return <input type="text" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
         }
     };
 
@@ -67,7 +73,7 @@ const ProjectResult = () => {
 
     return (
         <div className="container mx-auto mt-10">
-            <h1 className="text-4xl font-bold mb-4">Formulaire pour: {project.title}</h1>
+            <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
             <form>
                 {questions.map(question => (
                     <div key={question.id} className="mb-4">
