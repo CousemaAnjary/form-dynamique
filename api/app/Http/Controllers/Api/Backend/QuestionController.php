@@ -18,15 +18,22 @@ class QuestionController extends Controller
         $validated['project_id'] = $projectId;
         $question = Question::create($validated);
 
+        // Création des options associées
+        if (isset($validated['options'])) {
+            foreach ($validated['options'] as $optionData) {
+                $question->options()->create($optionData);
+            }
+        }
+
         return response()->json([
-            'question' => $question,
+            'question' => $question->load('options'),
             'message' => 'Question créée avec succès.'
         ], 201);
     }
 
     public function index($projectId)
     {
-        $questions = Question::where('project_id', $projectId)->get();
+        $questions = Question::where('project_id', $projectId)->with('options')->get();
 
         return response()->json([
             'questions' => $questions
@@ -35,7 +42,7 @@ class QuestionController extends Controller
 
     public function show($id)
     {
-        $question = Question::findOrFail($id);
+        $question = Question::with('options')->findOrFail($id);
 
         return response()->json([
             'question' => $question
@@ -49,13 +56,23 @@ class QuestionController extends Controller
             'type' => 'required|string|max:50',
             'placeholder' => 'nullable|string|max:255',
             'required' => 'boolean',
+            'options' => 'array',
+            'options.*.value' => 'required|string|max:255',
         ]);
 
         $question = Question::findOrFail($id);
         $question->update($validated);
 
+        // Mise à jour des options associées
+        $question->options()->delete();
+        if (isset($validated['options'])) {
+            foreach ($validated['options'] as $optionData) {
+                $question->options()->create($optionData);
+            }
+        }
+
         return response()->json([
-            'question' => $question,
+            'question' => $question->load('options'),
             'message' => 'Question mise à jour avec succès.'
         ]);
     }

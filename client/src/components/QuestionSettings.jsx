@@ -25,7 +25,10 @@ export default function QuestionSettings({ question, onClose }) {
     });
 
     const handleAddOption = () => {
-        append({ value: '' });
+        const options = form.getValues('options');
+        if (options.length === 0 || options[options.length - 1].value.trim() !== '') {
+            append({ value: '' });
+        }
     };
 
     const handleOptionChange = (index, value) => {
@@ -78,8 +81,6 @@ export default function QuestionSettings({ question, onClose }) {
                                     />
                                 </div>
 
-
-
                                 <div className="grid gap-2">
                                     <FormField
                                         control={form.control}
@@ -109,6 +110,7 @@ export default function QuestionSettings({ question, onClose }) {
                                         )}
                                     />
                                 </div>
+
                                 <div className="grid gap-2">
                                     <FormField
                                         control={form.control}
@@ -145,8 +147,6 @@ export default function QuestionSettings({ question, onClose }) {
                                         )}
                                     />
                                 </div>
-
-
                             </div>
                         </div>
                         <div className="col-span-1">
@@ -182,7 +182,6 @@ export default function QuestionSettings({ question, onClose }) {
                                     <Button type="button" onClick={handleAddOption} className="bg-blue-900">Ajouter une option</Button>
                                 </div>
                             )}
-
                         </div>
                     </div>
                     <div className="text-end mt-4">
