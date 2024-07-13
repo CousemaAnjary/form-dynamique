@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { X } from 'lucide-react';
 import { useForm, useFieldArray } from "react-hook-form";
 import { Input } from "@/components/ui/input";
@@ -26,9 +26,14 @@ export default function QuestionSettings({ question, onClose }) {
 
     const handleAddOption = () => {
         const options = form.getValues('options');
-        if (options.length === 0 || options[options.length - 1].value.trim() !== '') {
-            append({ value: '' });
+        if (options.length === 0 || options[options.length - 1].label.trim() !== '') {
+            append({ label: '', value: '' });
         }
+    };
+
+    const handleLabelChange = (index, value) => {
+        form.setValue(`options.${index}.label`, value);
+        form.setValue(`options.${index}.value`, value.toLowerCase());
     };
 
     const handleSubmit = async (data) => {
@@ -39,8 +44,8 @@ export default function QuestionSettings({ question, onClose }) {
             required: data.required === 'true',
             options: data.options.map(option => ({
                 value: option.value,
-                label: option.label || '', // Ajoutez cette ligne si le label est nécessaire
-            })).filter(option => option.value.trim() !== ''),
+                label: option.label,
+            })).filter(option => option.label.trim() !== ''),
         };
 
         try {
@@ -171,9 +176,10 @@ export default function QuestionSettings({ question, onClose }) {
                                     {fields.map((field, index) => (
                                         <div key={field.id} className="flex gap-2">
                                             <Input
-                                                {...form.register(`options.${index}.value`)}
+                                                {...form.register(`options.${index}.label`)}
                                                 placeholder={`Option ${index + 1}`}
                                                 className="shadow-sm mb-2 mt-1"
+                                                onChange={(e) => handleLabelChange(index, e.target.value)}
                                             />
                                             <Button type="button" variant="outline" className="mt-1" onClick={() => remove(index)}>Supprimer</Button>
                                         </div>
