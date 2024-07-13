@@ -5,9 +5,8 @@ import { getQuestionsByProjectId } from '@/services/questionService';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, } from "@/components/ui/select"
-
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const ProjectResult = () => {
     const { id } = useParams();
@@ -57,11 +56,20 @@ const ProjectResult = () => {
                 return <Input type="checkbox" name={name} className="mb-2" />;
             case 'select':
                 return (
-                    <select name={name} className="border rounded px-4 py-2 mb-2">
-                        {question.options.map(option => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-                    </select>
+                    <Select name={name}>
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Sélectionnez une option" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {question.options.map(option => (
+                                    <SelectItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 );
             case 'file':
                 return <Input type="file" name={name} className="mb-2" />;
