@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('project', [ProjectController::class, 'store']);
 Route::get('projects', [ProjectController::class, 'index']);
 Route::get('project/{id}', [ProjectController::class, 'show']);
+Route::put('project/{id}/complete', [ProjectController::class, 'saveAndCompleteProject']);
 
 
 
@@ -34,4 +35,3 @@ Route::get('question/{id}', [QuestionController::class, 'show']);
 Route::put('question/{id}', [QuestionController::class, 'update']);
 Route::put('question/{id}/position', [QuestionController::class, 'updatePosition']); // Nouvelle route pour mettre à jour la position
 Route::delete('question/{id}', [QuestionController::class, 'destroy']);
-Route::put('project/{id}/complete', [ProjectController::class, 'saveAndCompleteProject']);

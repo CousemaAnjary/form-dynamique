@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, X } from 'lucide-react';
@@ -7,13 +8,14 @@ import DraggableFormField from './DraggableFormField';
 import QuestionSettings from './QuestionSettings';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { getProjectById } from '@/services/projectService';
+import { getProjectById, completeProject } from '@/services/projectService'; // Ajoutez completeProject ici
 import { getQuestionsByProjectId, createQuestion, updateQuestionPosition, deleteQuestion } from '@/services/questionService';
 import { useParams } from 'react-router-dom';
 
 
 export default function FormContainer() {
     const { id } = useParams(); // Récupérer l'ID du projet depuis l'URL
+    const navigate = useNavigate();
     const [project, setProject] = useState(null);
     const [questions, setQuestions] = useState([]);
     const [questionLabel, setQuestionLabel] = useState(''); // Ajoutez cet état pour le libellé de la question
@@ -109,6 +111,15 @@ export default function FormContainer() {
         setSelectedQuestion(null)
     }
 
+    const handleSaveForm = async () => {
+        try {
+            await completeProject(id);
+            navigate(`/project/${id}/completed`);
+        } catch (error) {
+            console.error('Erreur lors de la finalisation du projet : ', error);
+        }
+    };
+
     if (!project) return <div>Chargement...</div>
 
     return (
@@ -125,7 +136,7 @@ export default function FormContainer() {
                             disabled
                         />
                     </div>
-                    <Button className="bg-blue-900 rounded-sm text-white">Sauvegarder</Button>
+                    <Button className="bg-blue-900 rounded-sm text-white" onClick={handleSaveForm}>Sauvegarder</Button>
                 </div>
             </div>
             <div className="container mx-auto mt-10">

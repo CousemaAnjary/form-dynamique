@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProjectById, getQuestionsByProjectId } from '@/services/projectService';
+import { getProjectById } from '@/services/projectService';
+import { getQuestionsByProjectId } from '@/services/questionService';
 
 const ProjectResult = () => {
     const { id } = useParams();
