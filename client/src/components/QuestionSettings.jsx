@@ -59,24 +59,97 @@ export default function QuestionSettings({ question, onClose }) {
             </div>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(handleSubmit)}>
-                    <div className='grid gap-4'>
-                        <div className='grid grid-cols-2 gap-4'>
-                            <div className="grid gap-2">
-                                <FormField
-                                    control={form.control}
-                                    name="label"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Label</FormLabel>
-                                            <FormControl>
-                                                <Input {...field} className="shadow-sm" />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="col-span-1">
+                            <div className="grid gap-4">
+                                <div className="grid gap-2">
+                                    <FormField
+                                        control={form.control}
+                                        name="label"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Label</FormLabel>
+                                                <FormControl>
+                                                    <Input {...field} className="shadow-sm" />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
 
+
+
+                                <div className="grid gap-2">
+                                    <FormField
+                                        control={form.control}
+                                        name="type"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Type</FormLabel>
+                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                    <FormControl>
+                                                        <SelectTrigger>
+                                                            <SelectValue placeholder="Select a type" />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent>
+                                                        <SelectItem value="text">Text</SelectItem>
+                                                        <SelectItem value="email">Email</SelectItem>
+                                                        <SelectItem value="password">Password</SelectItem>
+                                                        <SelectItem value="radio">Radio</SelectItem>
+                                                        <SelectItem value="checkbox">Checkbox</SelectItem>
+                                                        <SelectItem value="select">Select</SelectItem>
+                                                        <SelectItem value="file">File</SelectItem>
+                                                        <SelectItem value="date">Date</SelectItem>
+                                                        <SelectItem value="number">Number</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+                                <div className="grid gap-2">
+                                    <FormField
+                                        control={form.control}
+                                        name="required"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-3">
+                                                <FormLabel>Réponse Obligatoire:</FormLabel>
+                                                <FormControl>
+                                                    <RadioGroup
+                                                        onValueChange={field.onChange}
+                                                        defaultValue={field.value}
+                                                        className="flex flex-col space-y-1"
+                                                    >
+                                                        <FormItem className="flex items-center space-x-3 space-y-0">
+                                                            <FormControl>
+                                                                <RadioGroupItem value="true" />
+                                                            </FormControl>
+                                                            <FormLabel className="font-normal">
+                                                                Oui
+                                                            </FormLabel>
+                                                        </FormItem>
+                                                        <FormItem className="flex items-center space-x-3 space-y-0">
+                                                            <FormControl>
+                                                                <RadioGroupItem value="false" />
+                                                            </FormControl>
+                                                            <FormLabel className="font-normal">
+                                                                Non
+                                                            </FormLabel>
+                                                        </FormItem>
+                                                    </RadioGroup>
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div className="col-span-1">
                             <div className="grid gap-2">
                                 <FormField
                                     control={form.control}
@@ -92,40 +165,9 @@ export default function QuestionSettings({ question, onClose }) {
                                     )}
                                 />
                             </div>
-                        </div>
 
-                        <div className='grid grid-cols-2 gap-4'>
-                            <div className="grid gap-2">
-                                <FormField
-                                    control={form.control}
-                                    name="type"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Type</FormLabel>
-                                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                                <FormControl>
-                                                    <SelectTrigger>
-                                                        <SelectValue placeholder="Select a type" />
-                                                    </SelectTrigger>
-                                                </FormControl>
-                                                <SelectContent>
-                                                    <SelectItem value="text">Text</SelectItem>
-                                                    <SelectItem value="email">Email</SelectItem>
-                                                    <SelectItem value="password">Password</SelectItem>
-                                                    <SelectItem value="radio">Radio</SelectItem>
-                                                    <SelectItem value="checkbox">Checkbox</SelectItem>
-                                                    <SelectItem value="select">Select</SelectItem>
-                                                    <SelectItem value="file">File</SelectItem>
-                                                    <SelectItem value="date">Date</SelectItem>
-                                                    <SelectItem value="number">Number</SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
                             {(form.watch('type') === 'select' || form.watch('type') === 'radio') && (
-                                <div className="grid gap-2 mt-1">
+                                <div className="grid gap-2 mt-6">
                                     <FormLabel>Options</FormLabel>
                                     {fields.map((field, index) => (
                                         <div key={field.id} className="flex gap-2">
@@ -140,47 +182,11 @@ export default function QuestionSettings({ question, onClose }) {
                                     <Button type="button" onClick={handleAddOption} className="bg-blue-900">Ajouter une option</Button>
                                 </div>
                             )}
-                        </div>
 
-                        <div className="mt-4">
-                            <FormField
-                                control={form.control}
-                                name="required"
-                                render={({ field }) => (
-                                    <FormItem className="space-y-3">
-                                        <FormLabel>Réponse Obligatoire:</FormLabel>
-                                        <FormControl>
-                                            <RadioGroup
-                                                onValueChange={field.onChange}
-                                                defaultValue={field.value}
-                                                className="flex flex-col space-y-1"
-                                            >
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <FormControl>
-                                                        <RadioGroupItem value="true" />
-                                                    </FormControl>
-                                                    <FormLabel className="font-normal">
-                                                        Oui
-                                                    </FormLabel>
-                                                </FormItem>
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                                    <FormControl>
-                                                        <RadioGroupItem value="false" />
-                                                    </FormControl>
-                                                    <FormLabel className="font-normal">
-                                                        Non
-                                                    </FormLabel>
-                                                </FormItem>
-                                            </RadioGroup>
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
                         </div>
-                        <div className="text-end">
-                            <Button type='submit' className="bg-blue-900">Enregistrer</Button>
-                        </div>
+                    </div>
+                    <div className="text-end mt-4">
+                        <Button type='submit' className="bg-blue-900">Enregistrer</Button>
                     </div>
                 </form>
             </Form>
