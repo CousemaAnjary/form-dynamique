@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { getProjectById } from '@/services/projectService';
 import { getQuestionsByProjectId } from '@/services/questionService';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 
 const ProjectResult = () => {
     const { id } = useParams();
@@ -41,10 +43,10 @@ const ProjectResult = () => {
             case 'radio':
                 return (
                     question.options.map(option => (
-                        <label key={option.value}>
+                        <Label key={option.value}>
                             <Input type="radio" name={name} value={option.value} />
                             {option.label}
-                        </label>
+                        </Label>
                     ))
                 );
             case 'checkbox':
@@ -78,11 +80,11 @@ const ProjectResult = () => {
             <form>
                 {questions.map(question => (
                     <div key={question.id} className="mb-4">
-                        <label className="block mb-2 font-bold">{question.label}</label>
+                        <Label className="block mb-2 font-bold">{question.label}</Label>
                         {renderInputField(question)}
                     </div>
                 ))}
-                <button type="submit" className="bg-blue-900 text-white px-4 py-2 rounded">Soumettre</button>
+                <Button type="submit" className="bg-blue-900">Soumettre</Button>
             </form>
         </div>
     );
