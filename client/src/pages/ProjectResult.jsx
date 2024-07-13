@@ -5,6 +5,7 @@ import { getQuestionsByProjectId } from '@/services/questionService';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 const ProjectResult = () => {
     const { id } = useParams();
@@ -30,43 +31,44 @@ const ProjectResult = () => {
         return label.toLowerCase().replace(/ /g, '_');
     };
 
-
     const renderInputField = (question) => {
         const name = formatName(question.label);
         switch (question.type) {
             case 'text':
-                return <Input type="text" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
+                return <Input type="text" name={name} placeholder={question.placeholder} className="mb-2" />;
             case 'email':
-                return <Input type="email" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
+                return <Input type="email" name={name} placeholder={question.placeholder} className="mb-2" />;
             case 'password':
-                return <Input type="password" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
+                return <Input type="password" name={name} placeholder={question.placeholder} className="mb-2" />;
             case 'radio':
                 return (
-                    question.options.map(option => (
-                        <Label key={option.value}>
-                            <Input type="radio" name={name} value={option.value} />
-                            {option.label}
-                        </Label>
-                    ))
+                    <RadioGroup name={name} className="mb-2">
+                        {question.options.map(option => (
+                            <div className="flex items-center space-x-2" key={option.value}>
+                                <RadioGroupItem value={option.value} id={`${name}-${option.value}`} />
+                                <Label htmlFor={`${name}-${option.value}`}>{option.label}</Label>
+                            </div>
+                        ))}
+                    </RadioGroup>
                 );
             case 'checkbox':
-                return <Input type="checkbox" name={name} className="border rounded px-4 py-2" />;
+                return <Input type="checkbox" name={name} className="mb-2" />;
             case 'select':
                 return (
-                    <select name={name} className="border rounded px-4 py-2">
+                    <select name={name} className="border rounded px-4 py-2 mb-2">
                         {question.options.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
                     </select>
                 );
             case 'file':
-                return <Input type="file" name={name} className="border rounded px-4 py-2" />;
+                return <Input type="file" name={name} className="mb-2" />;
             case 'date':
-                return <Input type="date" name={name} className="border rounded px-4 py-2" />;
+                return <Input type="date" name={name} className="mb-2" />;
             case 'number':
-                return <Input type="number" name={name} className="border rounded px-4 py-2" />;
+                return <Input type="number" name={name} className="mb-2" />;
             default:
-                return <Input type="text" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
+                return <Input type="text" name={name} placeholder={question.placeholder} className="mb-2" />;
         }
     };
 
@@ -84,7 +86,7 @@ const ProjectResult = () => {
                         {renderInputField(question)}
                     </div>
                 ))}
-                <Button type="submit" className="bg-blue-900">Soumettre</Button>
+                <Button type="submit" className="bg-blue-900 text-white px-4 py-2 rounded">Soumettre</Button>
             </form>
         </div>
     );
