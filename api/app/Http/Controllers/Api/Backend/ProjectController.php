@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api\Backend;
 
 use App\Models\Project;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use App\Http\Requests\Api\Backend\ProjectRequest;
 
 class ProjectController extends Controller
@@ -44,5 +47,46 @@ class ProjectController extends Controller
         return response()->json([
             'project' => $project
         ], 200);
+    }
+
+    public function saveAndCompleteProject($id)
+    {
+        $project = Project::findOrFail($id);
+        $questions = Question::where('project_id', $id)->get();
+
+        // Créer la table dynamique
+        Schema::create($project->table_name, function (Blueprint $table) use ($questions) {
+            $table->id();
+            foreach ($questions as $question) {
+                $type = $this->mapQuestionTypeToColumnType($question->type);
+                $table->$type($question->label)->nullable();
+            }
+            $table->timestamps();
+        });
+
+        // Mettre à jour le statut du projet
+        $project->status = 'terminée';
+        $project->save();
+
+        return response()->json([
+            'message' => 'Projet terminé et table créée avec succès.',
+        ]);
+    }
+
+    private function mapQuestionTypeToColumnType($type)
+    {
+        $map = [
+            'text' => 'string',
+            'email' => 'string',
+            'password' => 'string',
+            'radio' => 'string',
+            'checkbox' => 'boolean',
+            'select' => 'string',
+            'file' => 'string',
+            'date' => 'date',
+            'number' => 'integer',
+        ];
+
+        return $map[$type] ?? 'string';
     }
 }

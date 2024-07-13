@@ -35,3 +35,12 @@ export const getProjectById = async (id) => {
         console.error('Erreur lors de la récupération du projet : ', error)
     }
 }
+
+export const completeProject = async (projectId) => {
+    try {
+        const response = await api.put(`/project/${projectId}/complete`);
+        return response.data;
+    } catch (error) {
+        console.error('Erreur lors de la finalisation du projet : ', error);
+    }
+};

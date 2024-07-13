@@ -34,3 +34,4 @@ Route::get('question/{id}', [QuestionController::class, 'show']);
 Route::put('question/{id}', [QuestionController::class, 'update']);
 Route::put('question/{id}/position', [QuestionController::class, 'updatePosition']); // Nouvelle route pour mettre à jour la position
 Route::delete('question/{id}', [QuestionController::class, 'destroy']);
+Route::put('project/{id}/complete', [ProjectController::class, 'saveAndCompleteProject']);
