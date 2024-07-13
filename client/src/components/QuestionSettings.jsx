@@ -37,7 +37,10 @@ export default function QuestionSettings({ question, onClose }) {
             type: data.type,
             placeholder: data.placeholder,
             required: data.required === 'true',
-            options: data.options.map(option => ({ value: option.value })).filter(option => option.value.trim() !== ''),
+            options: data.options.map(option => ({
+                value: option.value,
+                label: option.label || '', // Ajoutez cette ligne si le label est nécessaire
+            })).filter(option => option.value.trim() !== ''),
         };
 
         try {

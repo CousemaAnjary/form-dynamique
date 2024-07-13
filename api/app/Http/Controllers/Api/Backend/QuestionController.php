@@ -58,6 +58,7 @@ class QuestionController extends Controller
             'required' => 'boolean',
             'options' => 'array',
             'options.*.value' => 'required|string|max:255',
+            'options.*.label' => 'nullable|string|max:255', // Ajoutez cette ligne si le label est nécessaire
         ]);
 
         $question = Question::findOrFail($id);
@@ -76,6 +77,7 @@ class QuestionController extends Controller
             'message' => 'Question mise à jour avec succès.'
         ]);
     }
+
     public function updatePosition(Request $request, $id)
     {
         $validated = $request->validate([
