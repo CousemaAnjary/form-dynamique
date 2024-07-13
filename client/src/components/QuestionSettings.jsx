@@ -1,5 +1,6 @@
+import React, { useState } from 'react';
 import { X } from 'lucide-react';
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { updateQuestion } from '@/services/questionService';
@@ -14,8 +15,22 @@ export default function QuestionSettings({ question, onClose }) {
             type: question.type,
             placeholder: question.placeholder,
             required: question.required ? 'true' : 'false',
+            options: question.options || [],
         },
     });
+
+    const { fields, append, remove, update } = useFieldArray({
+        control: form.control,
+        name: "options",
+    });
+
+    const handleAddOption = () => {
+        append({ value: '' });
+    };
+
+    const handleOptionChange = (index, value) => {
+        update(index, { value });
+    };
 
     const handleSubmit = async (data) => {
         const questionData = {
@@ -23,10 +38,11 @@ export default function QuestionSettings({ question, onClose }) {
             type: data.type,
             placeholder: data.placeholder,
             required: data.required === 'true',
+            options: data.options.map(option => option.value).filter(option => option.trim() !== ''),
         };
 
         try {
-            const response = await updateQuestion(question.id, questionData);
+            await updateQuestion(question.id, questionData);
             window.location.reload();
         } catch (error) {
             console.error('Erreur lors de la mise à jour de la question', error);
@@ -45,7 +61,6 @@ export default function QuestionSettings({ question, onClose }) {
                 <form onSubmit={form.handleSubmit(handleSubmit)}>
                     <div className='grid gap-4'>
                         <div className='grid grid-cols-2 gap-4'>
-
                             <div className="grid gap-2">
                                 <FormField
                                     control={form.control}
@@ -109,51 +124,63 @@ export default function QuestionSettings({ question, onClose }) {
                                     )}
                                 />
                             </div>
-
-                            <div className='grid gap-2'>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="mt-4">
-                        <FormField
-                            control={form.control}
-                            name="required"
-                            render={({ field }) => (
-                                <FormItem className="space-y-3">
-                                    <FormLabel>Réponse Obligatoire:</FormLabel>
-                                    <FormControl>
-                                        <RadioGroup
-                                            onValueChange={field.onChange}
-                                            defaultValue={field.value}
-                                            className="flex flex-col space-y-1"
-                                        >
-                                            <FormItem className="flex items-center space-x-3 space-y-0">
-                                                <FormControl>
-                                                    <RadioGroupItem value="true" />
-                                                </FormControl>
-                                                <FormLabel className="font-normal">
-                                                    Oui
-                                                </FormLabel>
-                                            </FormItem>
-                                            <FormItem className="flex items-center space-x-3 space-y-0">
-                                                <FormControl>
-                                                    <RadioGroupItem value="false" />
-                                                </FormControl>
-                                                <FormLabel className="font-normal">
-                                                    Non
-                                                </FormLabel>
-                                            </FormItem>
-                                        </RadioGroup>
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
+                            {(form.watch('type') === 'select' || form.watch('type') === 'radio') && (
+                                <div className="grid gap-2 mt-1">
+                                    <FormLabel>Options</FormLabel>
+                                    {fields.map((field, index) => (
+                                        <div key={field.id} className="flex gap-2">
+                                            <Input
+                                                {...form.register(`options.${index}.value`)}
+                                                placeholder={`Option ${index + 1}`}
+                                                className="shadow-sm mb-2 mt-1"
+                                            />
+                                            <Button type="button" variant="outline" className="mt-1" onClick={() => remove(index)}>Supprimer</Button>
+                                        </div>
+                                    ))}
+                                    <Button type="button" onClick={handleAddOption} className="bg-blue-900">Ajouter une option</Button>
+                                </div>
                             )}
-                        />
-                    </div>
-                    <div className="text-end">
-                        <Button type='submit' className="bg-blue-900">Enregistrer</Button>
+                        </div>
+
+                        <div className="mt-4">
+                            <FormField
+                                control={form.control}
+                                name="required"
+                                render={({ field }) => (
+                                    <FormItem className="space-y-3">
+                                        <FormLabel>Réponse Obligatoire:</FormLabel>
+                                        <FormControl>
+                                            <RadioGroup
+                                                onValueChange={field.onChange}
+                                                defaultValue={field.value}
+                                                className="flex flex-col space-y-1"
+                                            >
+                                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                                    <FormControl>
+                                                        <RadioGroupItem value="true" />
+                                                    </FormControl>
+                                                    <FormLabel className="font-normal">
+                                                        Oui
+                                                    </FormLabel>
+                                                </FormItem>
+                                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                                    <FormControl>
+                                                        <RadioGroupItem value="false" />
+                                                    </FormControl>
+                                                    <FormLabel className="font-normal">
+                                                        Non
+                                                    </FormLabel>
+                                                </FormItem>
+                                            </RadioGroup>
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <div className="text-end">
+                            <Button type='submit' className="bg-blue-900">Enregistrer</Button>
+                        </div>
                     </div>
                 </form>
             </Form>
