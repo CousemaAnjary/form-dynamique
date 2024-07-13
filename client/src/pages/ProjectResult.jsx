@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProjectById } from '@/services/projectService';
 import { getQuestionsByProjectId } from '@/services/questionService';
+import { Input } from '@/components/ui/input';
 
 const ProjectResult = () => {
     const { id } = useParams();
@@ -32,22 +33,22 @@ const ProjectResult = () => {
         const name = formatName(question.label);
         switch (question.type) {
             case 'text':
-                return <input type="text" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
+                return <Input type="text" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
             case 'email':
-                return <input type="email" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
+                return <Input type="email" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
             case 'password':
-                return <input type="password" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
+                return <Input type="password" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
             case 'radio':
                 return (
                     question.options.map(option => (
                         <label key={option.value}>
-                            <input type="radio" name={name} value={option.value} />
+                            <Input type="radio" name={name} value={option.value} />
                             {option.label}
                         </label>
                     ))
                 );
             case 'checkbox':
-                return <input type="checkbox" name={name} className="border rounded px-4 py-2" />;
+                return <Input type="checkbox" name={name} className="border rounded px-4 py-2" />;
             case 'select':
                 return (
                     <select name={name} className="border rounded px-4 py-2">
@@ -57,13 +58,13 @@ const ProjectResult = () => {
                     </select>
                 );
             case 'file':
-                return <input type="file" name={name} className="border rounded px-4 py-2" />;
+                return <Input type="file" name={name} className="border rounded px-4 py-2" />;
             case 'date':
-                return <input type="date" name={name} className="border rounded px-4 py-2" />;
+                return <Input type="date" name={name} className="border rounded px-4 py-2" />;
             case 'number':
-                return <input type="number" name={name} className="border rounded px-4 py-2" />;
+                return <Input type="number" name={name} className="border rounded px-4 py-2" />;
             default:
-                return <input type="text" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
+                return <Input type="text" name={name} placeholder={question.placeholder} className="border rounded px-4 py-2" />;
         }
     };
 
