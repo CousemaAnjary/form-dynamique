@@ -19,7 +19,7 @@ export default function QuestionSettings({ question, onClose }) {
         },
     });
 
-    const { fields, append, remove, update } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control: form.control,
         name: "options",
     });
@@ -28,24 +28,6 @@ export default function QuestionSettings({ question, onClose }) {
         const options = form.getValues('options');
         if (options.length === 0 || options[options.length - 1].value.trim() !== '') {
             append({ value: '' });
-        }
-    };
-
-    const handleSaveOptions = async () => {
-        const options = form.getValues('options');
-        const questionData = {
-            label: form.getValues('label'),
-            type: form.getValues('type'),
-            placeholder: form.getValues('placeholder'),
-            required: form.getValues('required') === 'true',
-            options: options.map(option => ({ value: option.value })).filter(option => option.value.trim() !== ''),
-        };
-
-        try {
-            await updateQuestion(question.id, questionData);
-            window.location.reload();
-        } catch (error) {
-            console.error('Erreur lors de la mise à jour des options', error);
         }
     };
 
@@ -193,10 +175,7 @@ export default function QuestionSettings({ question, onClose }) {
                                             <Button type="button" variant="outline" className="mt-1" onClick={() => remove(index)}>Supprimer</Button>
                                         </div>
                                     ))}
-                                    <div className="flex gap-2">
-                                        <Button type="button" onClick={handleAddOption} className="bg-blue-900">Ajouter une option</Button>
-                                        <Button type="button" onClick={handleSaveOptions} className="bg-blue-900">Sauvegarder</Button>
-                                    </div>
+                                    <Button type="button" onClick={handleAddOption} className="bg-blue-900">Ajouter une option</Button>
                                 </div>
                             )}
                         </div>
