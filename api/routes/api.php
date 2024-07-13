@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Api\Backend\ProjectController;
-use App\Http\Controllers\Api\Backend\QuestionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Backend\OptionController;
+use App\Http\Controllers\Api\Backend\ProjectController;
+use App\Http\Controllers\Api\Backend\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,9 @@ Route::get('question/{id}', [QuestionController::class, 'show']);
 Route::put('question/{id}', [QuestionController::class, 'update']);
 Route::put('question/{id}/position', [QuestionController::class, 'updatePosition']); // Nouvelle route pour mettre à jour la position
 Route::delete('question/{id}', [QuestionController::class, 'destroy']);
+
+// Routes pour les options
+Route::post('question/{questionId}/option', [OptionController::class, 'store']);
+Route::get('question/{questionId}/options', [OptionController::class, 'index']);
+Route::put('option/{id}', [OptionController::class, 'update']);
+Route::delete('option/{id}', [OptionController::class, 'destroy']);
