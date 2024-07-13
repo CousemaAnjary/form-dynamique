@@ -17,4 +17,9 @@ class Question extends Model
         'position',
         'project_id',
     ];
+
+    public function options()
+    {
+        return $this->hasMany(Option::class);
+    }
 }
