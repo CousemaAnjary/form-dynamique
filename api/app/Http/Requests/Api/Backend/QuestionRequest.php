@@ -29,6 +29,7 @@ class QuestionRequest extends FormRequest
             'project_id' => ['required', 'integer'],
             'options' => ['array'],
             'options.*.value' => ['required', 'string', 'max:255'],
+
         ];
     }
 }

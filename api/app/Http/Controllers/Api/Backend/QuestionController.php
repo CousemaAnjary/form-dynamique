@@ -11,14 +11,11 @@ class QuestionController extends Controller
 {
     public function store(QuestionRequest $request, int $projectId)
     {
-        // Validation des données de la requête
         $validated = $request->validated();
 
-        // Création de la question
         $validated['project_id'] = $projectId;
         $question = Question::create($validated);
 
-        // Création des options associées
         if (isset($validated['options'])) {
             foreach ($validated['options'] as $optionData) {
                 $question->options()->create($optionData);
@@ -63,7 +60,6 @@ class QuestionController extends Controller
         $question = Question::findOrFail($id);
         $question->update($validated);
 
-        // Mise à jour des options associées
         $question->options()->delete();
         if (isset($validated['options'])) {
             foreach ($validated['options'] as $optionData) {

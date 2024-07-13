@@ -31,8 +31,22 @@ export default function QuestionSettings({ question, onClose }) {
         }
     };
 
-    const handleOptionChange = (index, value) => {
-        update(index, { value });
+    const handleSaveOptions = async () => {
+        const options = form.getValues('options');
+        const questionData = {
+            label: form.getValues('label'),
+            type: form.getValues('type'),
+            placeholder: form.getValues('placeholder'),
+            required: form.getValues('required') === 'true',
+            options: options.map(option => ({ value: option.value })).filter(option => option.value.trim() !== ''),
+        };
+
+        try {
+            await updateQuestion(question.id, questionData);
+            window.location.reload();
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour des options', error);
+        }
     };
 
     const handleSubmit = async (data) => {
@@ -41,7 +55,7 @@ export default function QuestionSettings({ question, onClose }) {
             type: data.type,
             placeholder: data.placeholder,
             required: data.required === 'true',
-            options: data.options.map(option => option.value).filter(option => option.trim() !== ''),
+            options: data.options.map(option => ({ value: option.value })).filter(option => option.value.trim() !== ''),
         };
 
         try {
@@ -179,7 +193,10 @@ export default function QuestionSettings({ question, onClose }) {
                                             <Button type="button" variant="outline" className="mt-1" onClick={() => remove(index)}>Supprimer</Button>
                                         </div>
                                     ))}
-                                    <Button type="button" onClick={handleAddOption} className="bg-blue-900">Ajouter une option</Button>
+                                    <div className="flex gap-2">
+                                        <Button type="button" onClick={handleAddOption} className="bg-blue-900">Ajouter une option</Button>
+                                        <Button type="button" onClick={handleSaveOptions} className="bg-blue-900">Sauvegarder</Button>
+                                    </div>
                                 </div>
                             )}
                         </div>
