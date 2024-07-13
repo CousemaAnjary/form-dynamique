@@ -36,73 +36,87 @@ export default function QuestionSettings({ question, onClose }) {
     return (
         <div className="border rounded p-6">
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold">Modifier la question</h2>
+                <h2 className="text-xl font-semibold font-mono text-blue-900">Modifier la question</h2>
                 <Button variant="outline" size="sm" className="ml-2" onClick={onClose}>
                     <X size={16} />
                 </Button>
             </div>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(handleSubmit)}>
-                    <div className="mb-4">
-                        <FormField
-                            control={form.control}
-                            name="label"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Label</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} className="shadow-sm" />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                    <div className='grid gap-4'>
+                        <div className='grid grid-cols-2 gap-4'>
+
+                            <div className="grid gap-2">
+                                <FormField
+                                    control={form.control}
+                                    name="label"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Label</FormLabel>
+                                            <FormControl>
+                                                <Input {...field} className="shadow-sm" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+
+                            <div className="grid gap-2">
+                                <FormField
+                                    control={form.control}
+                                    name="placeholder"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Placeholder</FormLabel>
+                                            <FormControl>
+                                                <Input {...field} placeholder="Veuillez saisir une placeholder" className="shadow-sm" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                        </div>
+
+                        <div className='grid grid-cols-2 gap-4'>
+                            <div className="grid gap-2">
+                                <FormField
+                                    control={form.control}
+                                    name="type"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Type</FormLabel>
+                                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select a type" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    <SelectItem value="text">Text</SelectItem>
+                                                    <SelectItem value="email">Email</SelectItem>
+                                                    <SelectItem value="password">Password</SelectItem>
+                                                    <SelectItem value="radio">Radio</SelectItem>
+                                                    <SelectItem value="checkbox">Checkbox</SelectItem>
+                                                    <SelectItem value="select">Select</SelectItem>
+                                                    <SelectItem value="file">File</SelectItem>
+                                                    <SelectItem value="date">Date</SelectItem>
+                                                    <SelectItem value="number">Number</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+
+                            <div className='grid gap-2'>
+
+                            </div>
+                        </div>
                     </div>
-                    <div className="mb-4">
-                        <FormField
-                            control={form.control}
-                            name="placeholder"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Placeholder</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} placeholder="Veuillez saisir une placeholder" className="shadow-sm" />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <FormField
-                            control={form.control}
-                            name="type"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Type</FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                        <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select a type" />
-                                            </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                            <SelectItem value="text">Text</SelectItem>
-                                            <SelectItem value="email">Email</SelectItem>
-                                            <SelectItem value="password">Password</SelectItem>
-                                            <SelectItem value="radio">Radio</SelectItem>
-                                            <SelectItem value="checkbox">Checkbox</SelectItem>
-                                            <SelectItem value="select">Select</SelectItem>
-                                            <SelectItem value="file">File</SelectItem>
-                                            <SelectItem value="date">Date</SelectItem>
-                                            <SelectItem value="number">Number</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <div className="mb-4">
+
+                    <div className="mt-4">
                         <FormField
                             control={form.control}
                             name="required"
