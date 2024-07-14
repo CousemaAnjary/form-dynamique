@@ -147,7 +147,7 @@ export default function FormContainer() {
         try {
             await completeProject(id)
             navigate(`/project/${id}/completed`)
-            
+
         } catch (error) {
             console.error('Erreur lors de la finalisation du projet : ', error)
         }
@@ -155,22 +155,6 @@ export default function FormContainer() {
     /**
      * ! AFFICHAGE (render) de l'application
      */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     if (!project) return <div>Chargement...</div>
 
