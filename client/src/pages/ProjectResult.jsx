@@ -36,11 +36,11 @@ const ProjectResult = () => {
         const name = formatName(question.label);
         switch (question.type) {
             case 'text':
-                return <Input type="text" name={name} placeholder={question.placeholder} className="mb-2" />;
+                return <Input type="text" name={name} placeholder={question.placeholder} className="mb-2 w-80" />;
             case 'email':
-                return <Input type="email" name={name} placeholder={question.placeholder} className="mb-2" />;
+                return <Input type="email" name={name} placeholder={question.placeholder} className="mb-2 w-80" />;
             case 'password':
-                return <Input type="password" name={name} placeholder={question.placeholder} className="mb-2" />;
+                return <Input type="password" name={name} placeholder={question.placeholder} className="mb-2 w-80" />;
             case 'radio':
                 return (
                     <RadioGroup name={name} className="mb-2">
@@ -56,8 +56,8 @@ const ProjectResult = () => {
                 return <Input type="checkbox" name={name} className="mb-2" />;
             case 'select':
                 return (
-                    <Select name={name}>
-                        <SelectTrigger className="w-full">
+                    <Select name={name} >
+                        <SelectTrigger className="mb-2 w-80">
                             <SelectValue placeholder="Sélectionnez une option" />
                         </SelectTrigger>
                         <SelectContent>
@@ -72,9 +72,9 @@ const ProjectResult = () => {
                     </Select>
                 );
             case 'file':
-                return <Input type="file" name={name} className="mb-2" />;
+                return <Input type="file" name={name} className="mb-2 w-80" />;
             case 'date':
-                return <Input type="date" name={name} className="mb-2" />;
+                return <Input type="date" name={name} className="mb-2 w-40" />;
             case 'number':
                 return <Input type="number" name={name} className="mb-2" />;
             default:
