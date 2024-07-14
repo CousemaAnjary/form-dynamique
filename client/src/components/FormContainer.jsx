@@ -24,7 +24,9 @@ export default function FormContainer() {
     const [project, setProject] = useState(null)
     const [questions, setQuestions] = useState([])
     const [questionLabel, setQuestionLabel] = useState('')
+    const [showTypeOptions, setShowTypeOptions] = useState(false)
     const [selectedQuestion, setSelectedQuestion] = useState(null)
+    const [showQuestionInput, setShowQuestionInput] = useState(false)
 
 
     /**
@@ -54,24 +56,22 @@ export default function FormContainer() {
             }
         }
 
-        fetchProject() 
+        fetchProject()
         fetchQuestions()
     }, [id]) // [id] pour exécuter le code une seule fois après le premier rendu
+
+
+    // Fonction pour afficher le formulaire d'ajout de question
+    const handleAddQuestionClick = () => {
+        setShowQuestionInput(true)
+        setShowTypeOptions(false)
+    }
 
     /**
      * ! AFFICHAGE (render) de l'application
      */
 
 
-
-
-    const [showQuestionInput, setShowQuestionInput] = useState(false);
-    const [showTypeOptions, setShowTypeOptions] = useState(false);
-
-    const handleAddQuestionClick = () => {
-        setShowQuestionInput(true);
-        setShowTypeOptions(false);
-    };
 
     const handleAddTypeClick = (type) => {
         addField(type);
