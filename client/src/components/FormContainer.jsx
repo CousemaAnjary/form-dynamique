@@ -80,6 +80,11 @@ export default function FormContainer() {
         setQuestionLabel('')
     }
 
+    // Fonction pour afficher les paramètres de la question
+    const handleSettingsClick = (question) => {
+        setSelectedQuestion(question)
+    }
+
     // Fonction pour ajouter un champ
     const handleAddField = async (type) => {
 
@@ -103,21 +108,33 @@ export default function FormContainer() {
         }
     }
 
+    // Fonction pour supprimer une question
+    const handleDeleteQuestion = async (id) => {
+
+        try {
+            await deleteQuestion(id) 
+            setQuestions(questions.filter(question => question.id !== id)) // Supprimer la question de la liste des questions
+
+        } catch (error) {
+            console.error('Erreur lors de la suppression de la question : ', error)
+        }
+    }
+
     // Fonction pour déplacer un champ
     const moveField = async (dragIndex, hoverIndex) => {
 
-        const draggedField = questions[dragIndex]
-        const updatedFields = [...questions]
+        const draggedField = questions[dragIndex] // Champ déplacé
+        const updatedFields = [...questions] // Liste des champs mise à jour
 
-        updatedFields.splice(dragIndex, 1)
-        updatedFields.splice(hoverIndex, 0, draggedField)
+        updatedFields.splice(dragIndex, 1) // Supprimer le champ déplacé
+        updatedFields.splice(hoverIndex, 0, draggedField) // Ajouter le champ déplacé à la nouvelle position
 
         // Mettre à jour les positions dans la base de données
         for (let i = 0; i < updatedFields.length; i++) {
             await updateQuestionPosition(updatedFields[i].id, { position: i })
         }
 
-        setQuestions(updatedFields)
+        setQuestions(updatedFields) // Mettre à jour la liste des champs
     }
 
 
@@ -133,18 +150,9 @@ export default function FormContainer() {
 
 
 
-    const handleSettingsClick = (question) => {
-        setSelectedQuestion(question);
-    };
 
-    const handleDeleteQuestion = async (id) => {
-        try {
-            await deleteQuestion(id);
-            setQuestions(questions.filter(question => question.id !== id));
-        } catch (error) {
-            console.error('Erreur lors de la suppression de la question : ', error);
-        }
-    };
+
+
 
     const handleCloseSettings = () => {
         setSelectedQuestion(null)
