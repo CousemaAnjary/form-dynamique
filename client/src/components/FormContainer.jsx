@@ -54,8 +54,8 @@ export default function FormContainer() {
             }
         }
 
-        fetchProject() // Appeler la fonction fetchProject
-        fetchQuestions() // Appeler la fonction fetchQuestions
+        fetchProject() 
+        fetchQuestions()
     }, [id]) // [id] pour exécuter le code une seule fois après le premier rendu
 
     /**
