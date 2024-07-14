@@ -15,12 +15,26 @@ import { getQuestionsByProjectId, createQuestion, updateQuestionPosition, delete
 
 
 export default function FormContainer() {
+    /**
+     * ! STATE (état, données) de l'application
+     */
     const { id } = useParams()
     const navigate = useNavigate()
+    
     const [project, setProject] = useState(null)
     const [questions, setQuestions] = useState([])
     const [questionLabel, setQuestionLabel] = useState('')
     const [selectedQuestion, setSelectedQuestion] = useState(null)
+
+    /**
+     * ! COMPORTEMENT (méthodes, fonctions) de l'application
+     */
+
+
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
+
 
     useEffect(() => {
         const fetchProject = async () => {
