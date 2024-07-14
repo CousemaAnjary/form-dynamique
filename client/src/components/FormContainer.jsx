@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Plus, X } from 'lucide-react';
-import TypeOptions from './TypeOptions';
-import DraggableFormField from './DraggableFormField';
-import QuestionSettings from './QuestionSettings';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { getProjectById, completeProject } from '@/services/projectService'; // Ajoutez completeProject ici
-import { getQuestionsByProjectId, createQuestion, updateQuestionPosition, deleteQuestion } from '@/services/questionService';
-import { useParams } from 'react-router-dom';
+import { Plus, X } from 'lucide-react'
+import TypeOptions from './TypeOptions'
+import { DndProvider } from 'react-dnd'
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { Input } from "@/components/ui/input"
+import { useNavigate } from 'react-router-dom'
+import { Button } from "@/components/ui/button"
+import QuestionSettings from './QuestionSettings'
+import DraggableFormField from './DraggableFormField'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { getProjectById, completeProject } from '@/services/projectService'
+import { getQuestionsByProjectId, createQuestion, updateQuestionPosition, deleteQuestion } from '@/services/questionService'
+
 
 
 export default function FormContainer() {
-    const { id } = useParams(); // Récupérer l'ID du projet depuis l'URL
-    const navigate = useNavigate();
-    const [project, setProject] = useState(null);
-    const [questions, setQuestions] = useState([]);
-    const [questionLabel, setQuestionLabel] = useState(''); // Ajoutez cet état pour le libellé de la question
-    const [selectedQuestion, setSelectedQuestion] = useState(null); // État pour la question sélectionnée
+    const { id } = useParams()
+    const navigate = useNavigate()
+    const [project, setProject] = useState(null)
+    const [questions, setQuestions] = useState([])
+    const [questionLabel, setQuestionLabel] = useState('')
+    const [selectedQuestion, setSelectedQuestion] = useState(null)
 
     useEffect(() => {
         const fetchProject = async () => {

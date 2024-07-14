@@ -1,7 +1,6 @@
-
-import { Route, Routes } from "react-router-dom"
-import Dashboard from "./pages/Dashboard"
 import NewForm from "./pages/NewForm"
+import Dashboard from "./pages/Dashboard"
+import { Route, Routes } from "react-router-dom"
 import ProjectResult from "./pages/ProjectResult"
 
 export default function App() {
