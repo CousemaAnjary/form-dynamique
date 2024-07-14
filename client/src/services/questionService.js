@@ -4,7 +4,7 @@ import api from './apiConfig';
 export const createQuestion = async (questionData) => {
     try {
         const response = await api.post(`/project/${questionData.project_id}/question`, questionData);
-        return response.data.question;
+        return response.data;
     } catch (error) {
         console.error('Erreur lors de la création de la question : ', error);
     }

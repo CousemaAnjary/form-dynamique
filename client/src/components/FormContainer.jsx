@@ -69,10 +69,39 @@ export default function FormContainer() {
 
     // Fonction pour ajouter un type de champ
     const handleAddTypeClick = (type) => {
-        addField(type)
+        handleAddField(type)
         setShowTypeOptions(false)
     }
 
+    // Fonction pour fermer le formulaire d'ajout de question
+    const handleCloseClick = () => {
+        setShowQuestionInput(false)
+        setShowTypeOptions(false)
+        setQuestionLabel('')
+    }
+
+    // Fonction pour ajouter un champ
+    const handleAddField = async (type) => {
+
+        // Données à envoyer au serveur pour créer une question
+        const questionData = {
+            project_id: id,
+            label: questionLabel || 'Default',
+            type,
+            required: false,
+            position: questions.length,
+        }
+
+        try {
+            // Appeler le service pour créer une question
+            const response = await createQuestion(questionData)
+            setQuestions([...questions, response.question]) // Ajouter la question à la liste des questions
+            setQuestionLabel('')
+
+        } catch (error) {
+            console.error('Erreur lors de la création de la question : ', error)
+        }
+    }
 
     /**
      * ! AFFICHAGE (render) de l'application
@@ -81,28 +110,9 @@ export default function FormContainer() {
 
 
 
-    const handleCloseClick = () => {
-        setShowQuestionInput(false);
-        setShowTypeOptions(false);
-        setQuestionLabel(''); // Réinitialiser le libellé de la question
-    };
 
-    const addField = async (type) => {
-        const newQuestion = {
-            label: questionLabel || 'Nom', // Utilisez la valeur de questionLabel
-            type,
-            required: false,
-            position: questions.length,
-            project_id: id,
-        };
-        try {
-            const createdQuestion = await createQuestion(newQuestion);
-            setQuestions([...questions, createdQuestion]);
-            setQuestionLabel(''); // Réinitialiser le libellé après l'ajout
-        } catch (error) {
-            console.error('Erreur lors de la création de la question : ', error);
-        }
-    };
+
+
 
     const moveField = async (dragIndex, hoverIndex) => {
         const draggedField = questions[dragIndex];
@@ -184,8 +194,8 @@ export default function FormContainer() {
                                 type="text"
                                 className="flex-grow px-4 py-2 mr-2 shadow-sm"
                                 placeholder="Veuillez saisir le libellé de la question"
-                                value={questionLabel} // Lier l'input à l'état questionLabel
-                                onChange={(e) => setQuestionLabel(e.target.value)} // Mettre à jour l'état questionLabel
+                                value={questionLabel}
+                                onChange={(e) => setQuestionLabel(e.target.value)}
                             />
                             <Button className="bg-blue-900 rounded-sm text-white" size="sm" onClick={() => setShowTypeOptions(true)}>Ajouter un type</Button>
                             <Button variant="outline" size="sm" className="ml-2 p-2" onClick={handleCloseClick}>
