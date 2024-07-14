@@ -95,11 +95,6 @@ export default function Content() {
         },
     }
 
-    // Filtrer les projets
-    const handlerFilter = (e) => {
-        setFilter(e.target.value);
-    }
-
     // Filtrer les projets en fonction du texte de recherche
     const filteredProjects = projects.filter((row) =>
         row.title.toLowerCase().includes(filter.toLowerCase())
@@ -120,7 +115,7 @@ export default function Content() {
                     type="search"
                     placeholder="Rechercher un projet ..."
                     value={filter}
-                    onChange={handlerFilter}
+                    onChange={(e) => setFilter(e.target.value)}
                     className="mb-2"
                 />
             </div>
