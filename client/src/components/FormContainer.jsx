@@ -153,7 +153,7 @@ export default function FormContainer() {
         } catch (error) {
             console.error('Erreur lors de la finalisation du projet : ', error)
         }
-    };
+    }
     /**
      * ! AFFICHAGE (render) de l'application
      */
