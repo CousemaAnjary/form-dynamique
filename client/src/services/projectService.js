@@ -24,7 +24,7 @@ export const getProjects = async () => {
     }
 }
 
-// récupérer un projet par son id
+// Voir un projet par son id
 export const getProjectById = async (id) => {
     try {
         // envoyer une requête GET au serveur pour récupérer le projet par son id
