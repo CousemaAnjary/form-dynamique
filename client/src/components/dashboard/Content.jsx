@@ -20,6 +20,7 @@ export default function Content() {
     /**
      * ! COMPORTEMENT (méthodes, fonctions) de l'application
      */
+    // Récupérer la liste des projets depuis l'api
     useEffect(() => {
         const fetchProjects = async () => {
             try {
