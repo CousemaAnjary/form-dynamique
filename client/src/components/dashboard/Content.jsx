@@ -113,7 +113,7 @@ export default function Content() {
             <div className="mb-4">
                 <Input
                     type="search"
-                    placeholder="Rechercher un projet ..."
+                    placeholder="Rechercher un projet"
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}
                     className="mb-2"
