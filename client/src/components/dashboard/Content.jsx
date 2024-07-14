@@ -2,7 +2,7 @@ import { MoreHorizontal } from 'lucide-react'
 import { Input } from "@/components/ui/input"
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import DataTable from 'react-data-table-component'
 import { getProjects } from '@/services/projectService'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
@@ -12,8 +12,9 @@ export default function Content() {
     /**
      * ! STATE (état, données) de l'application
      */
-    const navigate = useNavigate();
-    const [records, setRecords] = useState([])
+    const navigate = useNavigate()
+
+    const [projects, setProjects] = useState([])
     const [filter, setFilter] = useState('')
 
     /**
@@ -24,7 +25,7 @@ export default function Content() {
             try {
                 // Récupérer la liste des projets depuis l'api
                 const projectsData = await getProjects()
-                setRecords(projectsData) // Mettre à jour les données des projets
+                setProjects(projectsData)
 
             } catch (error) {
                 console.error('Erreur lors de la récupération des projets : ', error)
@@ -98,7 +99,7 @@ export default function Content() {
     }
 
     // Filtrer les projets en fonction du texte de recherche
-    const filteredRecords = records.filter((row) =>
+    const filteredRecords = projects.filter((row) =>
         row.title.toLowerCase().includes(filter.toLowerCase())
     )
 
