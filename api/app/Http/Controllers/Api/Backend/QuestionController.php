@@ -24,6 +24,7 @@ class QuestionController extends Controller
             }
         }
 
+        // Retour de la réponse JSON 
         return response()->json([
             'question' => $question->load('options'),
             'message' => 'Question créée avec succès.'
@@ -32,26 +33,24 @@ class QuestionController extends Controller
 
     public function index($projectId)
     {
+        // Récupération des questions associées à un projet
         $questions = Question::where('project_id', $projectId)->with('options')->get();
 
+        // Retour de la réponse JSON
         return response()->json([
             'questions' => $questions
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(QuestionRequest $request, $id)
     {
-        $validated = $request->validate([
-            'label' => 'required|string|max:255',
-            'type' => 'required|string|max:50',
-            'placeholder' => 'nullable|string|max:255',
-            'required' => 'boolean',
-            'options' => 'array',
-            'options.*.value' => 'required|string|max:255',
-            'options.*.label' => 'nullable|string|max:255', // Ajoutez cette ligne si le label est nécessaire
-        ]);
+        // Validation des données de la requête
+        $validated = $request->validated();
 
+        // Récupération de la question par son ID
         $question = Question::findOrFail($id);
+
+        // Mise à jour de la question
         $question->update($validated);
 
         // Mise à jour des options associées
@@ -62,6 +61,7 @@ class QuestionController extends Controller
             }
         }
 
+        // Retour de la réponse JSON
         return response()->json([
             'question' => $question->load('options'),
             'message' => 'Question mise à jour avec succès.'
