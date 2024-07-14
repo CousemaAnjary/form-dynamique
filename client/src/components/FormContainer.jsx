@@ -10,7 +10,7 @@ import QuestionSettings from './QuestionSettings'
 import DraggableFormField from './DraggableFormField'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { getProjectById, completeProject } from '@/services/projectService'
-import { getQuestionsByProjectId, createQuestion, updateQuestionPosition, deleteQuestion } from '@/services/questionService'
+import { getQuestions, createQuestion, updateQuestionPosition, deleteQuestion } from '@/services/questionService'
 
 
 
@@ -49,7 +49,7 @@ export default function FormContainer() {
         const fetchQuestions = async () => {
             try {
                 // Récupérer la liste des questions par le projet id depuis l'api
-                const questionsData = await getQuestionsByProjectId(id)
+                const questionsData = await getQuestions(id)
                 setQuestions(questionsData)
             } catch (error) {
                 console.error('Erreur lors de la récupération des questions : ', error)

@@ -1,17 +1,19 @@
-import api from './apiConfig';
+import api from './apiConfig'
 
 // Créer une nouvelle question
 export const createQuestion = async (questionData) => {
     try {
-        const response = await api.post(`/project/${questionData.project_id}/question`, questionData);
-        return response.data;
+        // envoyer les données de la question au serveur via une requête POST
+        const response = await api.post(`/question`, questionData)
+        return response.data
+
     } catch (error) {
-        console.error('Erreur lors de la création de la question : ', error);
+        console.error('Erreur lors de la création de la question : ', error)
     }
-};
+}
 
 // Récupérer les questions par projet
-export const getQuestionsByProjectId = async (projectId) => {
+export const getQuestions = async (projectId) => {
     try {
         const response = await api.get(`/project/${projectId}/questions`);
         return response.data.questions;

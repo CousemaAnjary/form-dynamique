@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Routes pour les projets
 Route::post('project', [ProjectController::class, 'store']);
 Route::get('projects', [ProjectController::class, 'index']);
 Route::get('project/{id}', [ProjectController::class, 'show']);
@@ -29,7 +30,7 @@ Route::put('project/{id}/complete', [ProjectController::class, 'saveAndCompleteP
 
 
 // Routes pour les questions
-Route::post('project/{projectId}/question', [QuestionController::class, 'store']);
+Route::post('question', [QuestionController::class, 'store']);
 Route::get('project/{projectId}/questions', [QuestionController::class, 'index']);
 Route::get('question/{id}', [QuestionController::class, 'show']);
 Route::put('question/{id}', [QuestionController::class, 'update']);

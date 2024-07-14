@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProjectById } from '@/services/projectService';
-import { getQuestionsByProjectId } from '@/services/questionService';
+import { getQuestions} from '@/services/questionService';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -18,7 +18,7 @@ const ProjectResult = () => {
             try {
                 const projectData = await getProjectById(id);
                 setProject(projectData);
-                const questionsData = await getQuestionsByProjectId(id);
+                const questionsData = await getQuestions(id);
                 setQuestions(questionsData);
             } catch (error) {
                 console.error('Erreur lors de la récupération des données du projet : ', error);

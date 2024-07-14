@@ -9,13 +9,12 @@ use App\Http\Requests\Api\Backend\QuestionRequest;
 
 class QuestionController extends Controller
 {
-    public function store(QuestionRequest $request, int $projectId)
+    public function store(QuestionRequest $request)
     {
         // Validation des données de la requête
         $validated = $request->validated();
 
         // Création de la question
-        $validated['project_id'] = $projectId;
         $question = Question::create($validated);
 
         // Création des options associées
