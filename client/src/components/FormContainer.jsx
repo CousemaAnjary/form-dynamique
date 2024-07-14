@@ -26,17 +26,10 @@ export default function FormContainer() {
     const [questionLabel, setQuestionLabel] = useState('')
     const [selectedQuestion, setSelectedQuestion] = useState(null)
 
-    
+
     /**
      * ! COMPORTEMENT (méthodes, fonctions) de l'application
      */
-
-
-    /**
-     * ! AFFICHAGE (render) de l'application
-     */
-
-
     useEffect(() => {
         const fetchProject = async () => {
             try {
@@ -59,6 +52,13 @@ export default function FormContainer() {
         fetchProject();
         fetchQuestions();
     }, [id]);
+
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
+
+
+
 
     const [showQuestionInput, setShowQuestionInput] = useState(false);
     const [showTypeOptions, setShowTypeOptions] = useState(false);
