@@ -31,6 +31,7 @@ export default function FormContainer() {
      * ! COMPORTEMENT (méthodes, fonctions) de l'application
      */
     useEffect(() => {
+        // Fonction pour récupérer le projet par son id
         const fetchProject = async () => {
             try {
                 const projectData = await getProjectById(id);
