@@ -36,18 +36,21 @@ export default function FormContainer() {
             try {
                 // Récupérer le projet par son id depuis l'api
                 const projectData = await getProjectById(id)
-                setProject(projectData);
-            } catch (error) {
-                console.error('Erreur lors de la récupération du projet : ', error);
-            }
-        };
+                setProject(projectData)
 
+            } catch (error) {
+                console.error('Erreur lors de la récupération du projet : ', error)
+            }
+        }
+
+        // Fonction pour récupérer la liste des questions par le projet id
         const fetchQuestions = async () => {
             try {
-                const questionsData = await getQuestionsByProjectId(id);
-                setQuestions(questionsData);
+                // Récupérer la liste des questions par le projet id depuis l'api
+                const questionsData = await getQuestionsByProjectId(id)
+                setQuestions(questionsData)
             } catch (error) {
-                console.error('Erreur lors de la récupération des questions : ', error);
+                console.error('Erreur lors de la récupération des questions : ', error)
             }
         };
 
