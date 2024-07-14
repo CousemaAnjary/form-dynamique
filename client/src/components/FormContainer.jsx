@@ -117,6 +117,7 @@ export default function FormContainer() {
     const handleDeleteQuestion = async (id) => {
 
         try {
+            // Appeler le service pour supprimer une question
             await deleteQuestion(id)
             setQuestions(questions.filter(question => question.id !== id)) // Supprimer la question de la liste des questions
 
@@ -145,7 +146,7 @@ export default function FormContainer() {
     // Fonction pour finaliser le projet
     const handleSaveForm = async () => {
         try {
-            // 
+            // Appeler le service pour finaliser le projet
             await completeProject(id)
             navigate(`/project/${id}/completed`)
 
