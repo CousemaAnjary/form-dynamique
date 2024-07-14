@@ -1,14 +1,18 @@
-import React from 'react';
-import { X } from 'lucide-react';
-import { useForm, useFieldArray } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { updateQuestion } from '@/services/questionService';
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { X } from 'lucide-react'
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { useForm, useFieldArray } from "react-hook-form"
+import { updateQuestion } from '@/services/questionService'
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+
+
 
 export default function QuestionSettings({ question, onClose }) {
+    /**
+     * ! STATE (état, données) de l'application
+     */
     const form = useForm({
         defaultValues: {
             label: question.label,
@@ -17,26 +21,36 @@ export default function QuestionSettings({ question, onClose }) {
             required: question.required ? 'true' : 'false',
             options: question.options || [],
         },
-    });
+    })
 
+    /**
+     * ! COMPORTEMENT (méthodes, fonctions) de l'application
+     */
+
+    // Utiliser le hook useFieldArray pour gérer les champs de type tableau
     const { fields, append, remove } = useFieldArray({
         control: form.control,
         name: "options",
-    });
+    })
 
+    // Ajouter une option 
     const handleAddOption = () => {
-        const options = form.getValues('options');
+        const options = form.getValues('options')
         if (options.length === 0 || options[options.length - 1].label.trim() !== '') {
-            append({ label: '', value: '' });
+            append({ label: '', value: '' })
         }
-    };
+    }
 
+    // Mettre à jour le label et la valeur d'une option
     const handleLabelChange = (index, value) => {
-        form.setValue(`options.${index}.label`, value);
-        form.setValue(`options.${index}.value`, value.toLowerCase());
-    };
+        form.setValue(`options.${index}.label`, value)
+        form.setValue(`options.${index}.value`, value.toLowerCase())
+    }
 
+    // Soumettre le formulaire
     const handleSubmit = async (data) => {
+
+        // Données à envoyer au serveur pour mettre à jour une question
         const questionData = {
             label: data.label,
             type: data.type,
@@ -46,16 +60,20 @@ export default function QuestionSettings({ question, onClose }) {
                 value: option.value,
                 label: option.label,
             })).filter(option => option.label.trim() !== ''),
-        };
+        }
 
         try {
-            await updateQuestion(question.id, questionData);
-            window.location.reload();
-        } catch (error) {
-            console.error('Erreur lors de la mise à jour de la question', error);
-        }
-    };
+            // Appeler le service pour mettre à jour une question
+            await updateQuestion(question.id, questionData)
+            window.location.reload()
 
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour de la question', error)
+        }
+    }
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
         <div className="border rounded p-6">
             <div className="flex justify-between items-center mb-4">
