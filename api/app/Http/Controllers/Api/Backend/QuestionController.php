@@ -39,15 +39,6 @@ class QuestionController extends Controller
         ]);
     }
 
-    public function show($id)
-    {
-        $question = Question::with('options')->findOrFail($id);
-
-        return response()->json([
-            'question' => $question
-        ]);
-    }
-
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
