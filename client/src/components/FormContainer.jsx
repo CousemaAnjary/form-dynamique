@@ -52,11 +52,11 @@ export default function FormContainer() {
             } catch (error) {
                 console.error('Erreur lors de la récupération des questions : ', error)
             }
-        };
+        }
 
-        fetchProject();
-        fetchQuestions();
-    }, [id]);
+        fetchProject() // Appeler la fonction fetchProject
+        fetchQuestions() // Appeler la fonction fetchQuestions
+    }, [id]) // [id] pour exécuter le code une seule fois après le premier rendu
 
     /**
      * ! AFFICHAGE (render) de l'application
