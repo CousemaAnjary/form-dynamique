@@ -33,7 +33,7 @@ export default function Content() {
                 console.error('Erreur lors de la récupération des projets : ', error)
             }
         }
-        fetchProjects() // Appeler la fonction fetchProjects    
+        fetchProjects()   
     }, []) // [] pour exécuter le code une seule fois après le premier rendu
 
     // Colonnes du tableau
