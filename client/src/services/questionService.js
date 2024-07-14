@@ -2,6 +2,7 @@ import api from './apiConfig'
 
 // Créer une nouvelle question
 export const createQuestion = async (questionData) => {
+
     try {
         // envoyer les données de la question au serveur via une requête POST
         const response = await api.post(`/question`, questionData)
@@ -14,19 +15,25 @@ export const createQuestion = async (questionData) => {
 
 // Récupérer les questions par projet
 export const getQuestions = async (projectId) => {
+
     try {
-        const response = await api.get(`/project/${projectId}/questions`);
-        return response.data.questions;
+        // envoyer une requête GET au serveur pour récupérer la liste des questions
+        const response = await api.get(`/project/${projectId}/questions`)
+        return response.data.questions
+
     } catch (error) {
-        console.error('Erreur lors de la récupération des questions : ', error);
+        console.error('Erreur lors de la récupération des questions : ', error)
     }
-};
+}
 
 // Mettre à jour une question
 export const updateQuestion = async (id, questionData) => {
+
     try {
-        const response = await api.put(`/question/${id}`, questionData);
-        return response.data.question;
+        // envoyer les données de la question au serveur via une requête PUT
+        const response = await api.put(`/question/${id}`, questionData)
+        return response.data.question
+
     } catch (error) {
         console.error('Erreur lors de la mise à jour de la question : ', error);
     }
