@@ -16,13 +16,13 @@ export default function Content() {
 
     const [filter, setFilter] = useState('')
     const [projects, setProjects] = useState([])
-    
+
 
     /**
      * ! COMPORTEMENT (méthodes, fonctions) de l'application
      */
-    // Récupérer la liste des projets depuis l'api
     useEffect(() => {
+        // Fonction pour récupérer la liste des projets
         const fetchProjects = async () => {
             try {
                 // Récupérer la liste des projets depuis l'api
