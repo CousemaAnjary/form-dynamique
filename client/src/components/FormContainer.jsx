@@ -85,6 +85,11 @@ export default function FormContainer() {
         setSelectedQuestion(question)
     }
 
+    // Fonction pour fermer les paramètres de la question
+    const handleCloseSettings = () => {
+        setSelectedQuestion(null)
+    }
+
     // Fonction pour ajouter un champ
     const handleAddField = async (type) => {
 
@@ -112,7 +117,7 @@ export default function FormContainer() {
     const handleDeleteQuestion = async (id) => {
 
         try {
-            await deleteQuestion(id) 
+            await deleteQuestion(id)
             setQuestions(questions.filter(question => question.id !== id)) // Supprimer la question de la liste des questions
 
         } catch (error) {
@@ -137,7 +142,16 @@ export default function FormContainer() {
         setQuestions(updatedFields) // Mettre à jour la liste des champs
     }
 
-
+    // Fonction pour finaliser le projet
+    const handleSaveForm = async () => {
+        try {
+            await completeProject(id)
+            navigate(`/project/${id}/completed`)
+            
+        } catch (error) {
+            console.error('Erreur lors de la finalisation du projet : ', error)
+        }
+    };
     /**
      * ! AFFICHAGE (render) de l'application
      */
@@ -154,18 +168,9 @@ export default function FormContainer() {
 
 
 
-    const handleCloseSettings = () => {
-        setSelectedQuestion(null)
-    }
 
-    const handleSaveForm = async () => {
-        try {
-            await completeProject(id);
-            navigate(`/project/${id}/completed`);
-        } catch (error) {
-            console.error('Erreur lors de la finalisation du projet : ', error);
-        }
-    };
+
+
 
     if (!project) return <div>Chargement...</div>
 
