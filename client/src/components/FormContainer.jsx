@@ -217,19 +217,19 @@ export default function FormContainer() {
 
                     <div className="mt-7 border p-4">
                         <DndProvider backend={HTML5Backend}>
-                            {questions.map((field, index) => (
-                                <div key={field.id}>
+                            {questions.map((question, index) => (
+                                <div key={question.id}>
                                     <DraggableFormField
-                                        id={field.id}
+                                        id={question.id}
                                         index={index}
-                                        type={field.type}
-                                        label={field.label}
-                                        placeholder={field.placeholder}
+                                        type={question.type}
+                                        label={question.label}
+                                        placeholder={question.placeholder}
                                         moveField={moveField}
-                                        onSettingsClick={() => handleSettingsClick(field)}
-                                        onDelete={() => handleDeleteQuestion(field.id)}
+                                        onSettingsClick={() => handleSettingsClick(question)}
+                                        onDelete={() => handleDeleteQuestion(question.id)}
                                     />
-                                    {selectedQuestion && selectedQuestion.id === field.id && (
+                                    {selectedQuestion && selectedQuestion.id === question.id && (
                                         <QuestionSettings
                                             question={selectedQuestion}
                                             onClose={handleCloseSettings}

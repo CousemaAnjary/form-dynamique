@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
-import { TbNumber123 } from "react-icons/tb";
-import { useDrag, useDrop } from 'react-dnd';
-import { Settings, Trash } from 'lucide-react';
-import { Text, Mail, KeyRound, Radio, ListTodo, TextSelect, File, Calendar } from 'lucide-react';
+import { useRef } from 'react'
+import { TbNumber123 } from "react-icons/tb"
+import { useDrag, useDrop } from 'react-dnd'
+import { Settings, Trash } from 'lucide-react'
+import { Text, Mail, KeyRound, Radio, ListTodo, TextSelect, File, Calendar } from 'lucide-react'
+
 
 // Définir les icônes pour chaque type de champ
 const iconMap = {
@@ -15,11 +16,11 @@ const iconMap = {
     file: <File className="w-5 h-5" />,
     date: <Calendar className="w-5 h-5" />,
     number: <TbNumber123 className="w-5 h-5" />,
-};
+}
 
 const ItemType = 'FIELD';
 
-const DraggableFormField = ({ id, index, type, label, placeholder, moveField, onSettingsClick, onDelete }) => {
+export default function DraggableFormField({ id, index, type, label, placeholder, moveField, onSettingsClick, onDelete }) {
     const ref = useRef(null);
 
     const [, drop] = useDrop({
@@ -82,4 +83,3 @@ const DraggableFormField = ({ id, index, type, label, placeholder, moveField, on
     );
 };
 
-export default DraggableFormField;
