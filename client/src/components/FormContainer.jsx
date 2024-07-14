@@ -67,16 +67,19 @@ export default function FormContainer() {
         setShowTypeOptions(false)
     }
 
+    // Fonction pour ajouter un type de champ
+    const handleAddTypeClick = (type) => {
+        addField(type)
+        setShowTypeOptions(false)
+    }
+
+
     /**
      * ! AFFICHAGE (render) de l'application
      */
 
 
 
-    const handleAddTypeClick = (type) => {
-        addField(type);
-        setShowTypeOptions(false);
-    };
 
     const handleCloseClick = () => {
         setShowQuestionInput(false);
