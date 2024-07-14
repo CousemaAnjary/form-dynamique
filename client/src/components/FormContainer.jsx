@@ -34,7 +34,8 @@ export default function FormContainer() {
         // Fonction pour récupérer le projet par son id
         const fetchProject = async () => {
             try {
-                const projectData = await getProjectById(id);
+                // Récupérer le projet par son id depuis l'api
+                const projectData = await getProjectById(id)
                 setProject(projectData);
             } catch (error) {
                 console.error('Erreur lors de la récupération du projet : ', error);
