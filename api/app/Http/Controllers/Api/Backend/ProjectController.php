@@ -22,7 +22,13 @@ class ProjectController extends Controller
 
         // Retourner le projet créé avec un code de statut HTTP 201 : Ressource créée
         return response()->json([
-            'project' => $project,
+            'project' => [
+                'id' => $project->id,
+                'title' => $project->title,
+                'description' => $project->description,
+                'table_name' => $project->table_name,
+                'status' => $project->status,
+            ],
             'message' => 'Projet créé avec succès.'
         ], 201);
     }

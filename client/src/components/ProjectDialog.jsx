@@ -70,7 +70,7 @@ export default function ProjectDialog({ sidebarOpen }) {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[600px]">
                 <DialogHeader>
-                    <DialogTitle>Créer le projet: Détails du formulaire</DialogTitle>
+                    <DialogTitle>Créer le projet : Détails du formulaire</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(handleSubmit)}>
