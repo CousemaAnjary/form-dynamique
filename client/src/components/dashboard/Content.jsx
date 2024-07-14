@@ -99,7 +99,7 @@ export default function Content() {
     }
 
     // Filtrer les projets en fonction du texte de recherche
-    const filteredRecords = projects.filter((row) =>
+    const filteredProjects = projects.filter((row) =>
         row.title.toLowerCase().includes(filter.toLowerCase())
     )
 
@@ -125,7 +125,7 @@ export default function Content() {
             <DataTable
                 title="Liste des projets"
                 columns={columns}
-                data={filteredRecords}
+                data={filteredProjects}
                 pagination
                 selectableRows
                 highlightOnHover
