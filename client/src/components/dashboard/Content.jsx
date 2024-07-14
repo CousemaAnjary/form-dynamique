@@ -14,8 +14,9 @@ export default function Content() {
      */
     const navigate = useNavigate()
 
-    const [projects, setProjects] = useState([])
     const [filter, setFilter] = useState('')
+    const [projects, setProjects] = useState([])
+    
 
     /**
      * ! COMPORTEMENT (méthodes, fonctions) de l'application
