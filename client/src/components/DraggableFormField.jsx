@@ -18,11 +18,20 @@ const iconMap = {
     number: <TbNumber123 className="w-5 h-5" />,
 }
 
-const ItemType = 'FIELD';
+// Définir le type de l'élément glissable
+const ItemType = 'FIELD'
 
 export default function DraggableFormField({ id, index, type, label, placeholder, moveField, onSettingsClick, onDelete }) {
-    const ref = useRef(null);
+    /**
+     * ! STATE (état, données) de l'application
+     */
+    const ref = useRef(null)
 
+    /**
+     * ! COMPORTEMENT (méthodes, fonctions) de l'application
+     */
+
+    // Définir le comportement de glisser-déposer
     const [, drop] = useDrop({
         accept: ItemType,
         hover(item, monitor) {
@@ -51,8 +60,8 @@ export default function DraggableFormField({ id, index, type, label, placeholder
 
             moveField(dragIndex, hoverIndex);
             item.index = hoverIndex;
-        },
-    });
+        }
+    })
 
     const [{ isDragging }, drag] = useDrag({
         type: ItemType,
@@ -60,10 +69,13 @@ export default function DraggableFormField({ id, index, type, label, placeholder
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
-    });
+    })
 
-    drag(drop(ref));
+    drag(drop(ref))
 
+    /**
+     * ! AFFICHAGE (render) de l'application
+     */
     return (
         <div ref={ref} className={`flex items-center border rounded p-2 my-2 bg-white relative ${isDragging ? 'opacity-50' : ''}`}>
             <div className="flex items-center space-x-2 w-full">
@@ -80,6 +92,6 @@ export default function DraggableFormField({ id, index, type, label, placeholder
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
