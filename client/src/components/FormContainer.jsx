@@ -103,6 +103,24 @@ export default function FormContainer() {
         }
     }
 
+    // Fonction pour déplacer un champ
+    const moveField = async (dragIndex, hoverIndex) => {
+
+        const draggedField = questions[dragIndex]
+        const updatedFields = [...questions]
+
+        updatedFields.splice(dragIndex, 1)
+        updatedFields.splice(hoverIndex, 0, draggedField)
+
+        // Mettre à jour les positions dans la base de données
+        for (let i = 0; i < updatedFields.length; i++) {
+            await updateQuestionPosition(updatedFields[i].id, { position: i })
+        }
+
+        setQuestions(updatedFields)
+    }
+
+
     /**
      * ! AFFICHAGE (render) de l'application
      */
@@ -114,19 +132,6 @@ export default function FormContainer() {
 
 
 
-    const moveField = async (dragIndex, hoverIndex) => {
-        const draggedField = questions[dragIndex];
-        const updatedFields = [...questions];
-        updatedFields.splice(dragIndex, 1);
-        updatedFields.splice(hoverIndex, 0, draggedField);
-
-        // Mettre à jour les positions dans la base de données
-        for (let i = 0; i < updatedFields.length; i++) {
-            await updateQuestionPosition(updatedFields[i].id, { position: i });
-        }
-
-        setQuestions(updatedFields);
-    };
 
     const handleSettingsClick = (question) => {
         setSelectedQuestion(question);
