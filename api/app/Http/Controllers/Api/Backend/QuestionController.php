@@ -41,6 +41,7 @@ class QuestionController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Validation des données de la requête
         $validated = $request->validate([
             'label' => 'required|string|max:255',
             'type' => 'required|string|max:50',
@@ -51,7 +52,10 @@ class QuestionController extends Controller
             'options.*.label' => 'nullable|string|max:255', // Ajoutez cette ligne si le label est nécessaire
         ]);
 
+        // Récupération de la question par son ID
         $question = Question::findOrFail($id);
+
+        // Mise à jour de la question
         $question->update($validated);
 
         // Mise à jour des options associées

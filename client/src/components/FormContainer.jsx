@@ -95,11 +95,11 @@ export default function FormContainer() {
 
         // Données à envoyer au serveur pour créer une question
         const questionData = {
-            project_id: id,
             label: questionLabel || 'Default',
             type,
             required: false,
             position: questions.length,
+            project_id: id,
         }
 
         try {
