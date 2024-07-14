@@ -36,11 +36,11 @@ const ProjectResult = () => {
         const name = formatName(question.label);
         switch (question.type) {
             case 'text':
-                return <Input type="text" name={name} placeholder={question.placeholder} className="mb-2 " />;
+                return <Input type="text" name={name} placeholder={question.placeholder} className="mb-2" />;
             case 'email':
-                return <Input type="email" name={name} placeholder={question.placeholder} className="mb-2 " />;
+                return <Input type="email" name={name} placeholder={question.placeholder} className="mb-2" />;
             case 'password':
-                return <Input type="password" name={name} placeholder={question.placeholder} className="mb-2 " />;
+                return <Input type="password" name={name} placeholder={question.placeholder} className="mb-2" />;
             case 'radio':
                 return (
                     <RadioGroup name={name} className="mb-2">
